@@ -59,8 +59,7 @@ function Hero() {
         </motion.p>
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1.7, duration: 0.8 }} className="mt-10 flex flex-wrap gap-4">
           <Btn {...contactLink("retailer")}>Find a Retailer</Btn><Btn variant="ghost" scrollTo="spaces">Explore Products</Btn>
-        </motion.div>
-      </motion.div>
+        </motion.div>      </motion.div>
 
       <motion.div ref={panelRef} style={{ visibility: hidePanel ? "hidden" : "visible" }} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 2.2 }}
         className="absolute bottom-0 right-0 hidden border-l border-t border-white/10 bg-ink/60 backdrop-blur-md md:flex">
