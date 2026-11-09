@@ -1,0 +1,34 @@
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap");
+@import "tailwindcss";
+
+@theme {
+  --color-brand: #9b1c1f;
+  --color-brand-dark: #7a1518;
+  --color-brand-light: #e0585b;
+  --color-ink: #131416;
+  --color-paper: #f7f5f1;
+  --color-stone: #e8e4dd;
+  --font-sans: "Manrope", system-ui, sans-serif;
+  --font-serif: "Instrument Serif", Georgia, serif;
+}
+
+html { scroll-behavior: smooth; }
+body { background: #131416; }
+
+.grain { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='0.9'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.08'/%3E%3C/svg%3E"); pointer-events: none; }
+
+.marquee { animation: marquee 35s linear infinite; }
+@keyframes marquee { to { transform: translateX(-33.333%); } }
+.spin { animation: spin 14s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* Offset in-page scroll targets (and focused fields) below the fixed header */
+[id] { scroll-margin-top: 128px; }
+
+/* Dark, monochrome Google Map to match the brand palette */
+.map-dark { filter: grayscale(1) invert(0.92) contrast(0.85) brightness(0.95); }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .marquee, .spin { animation: none; }
+}
