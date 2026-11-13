@@ -39,7 +39,7 @@ function Hero({ onPick }: { onPick: (i: number) => void }) {
           </h1>
           <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1.2, duration: 0.8 }}
             className="mt-8 max-w-md text-lg leading-relaxed text-white/65">
-            The questions RV owners ask us most, from choosing a product to cleaning, installing and seaming it.
+            The questions we hear most, from choosing a product to cleaning, installing and seaming it.
           </motion.p>
           <motion.ol initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1.4, duration: 0.8 }}
             className="mt-10 grid max-w-lg border-t border-white/10 sm:grid-cols-2 sm:gap-x-8">
@@ -115,11 +115,12 @@ function Visual({ faq }: { faq: Faq }) {
         <motion.div {...stagger(0)} className="relative overflow-hidden bg-ink p-7 text-white">
           <div className="grain absolute inset-0" />
           <div className="relative">
-            <div className="text-[10px] uppercase tracking-[0.3em] text-white/50">Toll free · current list of retailers</div>
+            <div className="text-[10px] uppercase tracking-[0.3em] text-white/50">OEM team · toll free</div>
             <a href={SITE.phone.href} className="mt-2 block text-4xl font-extrabold tracking-tight transition hover:text-brand-light xl:text-5xl">{SITE.phone.pretty}</a>
+            <p className="mt-4 max-w-sm text-sm leading-relaxed text-white/60">Flooring for manufacturers. Online listing is limited to two authorized retailers.</p>
             <div className="mt-6 flex flex-wrap gap-3">
               <Btn href={SITE.phone.href}>Call now</Btn>
-              <Btn variant="ghost" {...contactLink("retailer")}>Ask online</Btn>
+              <Btn variant="ghost" {...contactLink("oem")}>OEM inquiry</Btn>
             </div>
           </div>
         </motion.div>

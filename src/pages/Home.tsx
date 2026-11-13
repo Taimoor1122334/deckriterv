@@ -28,7 +28,7 @@ function Hero() {
   const panelRef = useRef<HTMLDivElement>(null);
   const { hideHint, hidePanel } = useHeroCrowding(ref, contentRef, hintRef, panelRef);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
-  const scale = useTransform(scrollYProgress, [0, 1], [1.05, 1.3]);
+  const scale = useTransform(scrollYProgress, [0, 1], [1, 1.06]);
   const y = useTransform(scrollYProgress, [0, 1], [0, 200]);
   const op = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
   return (
@@ -36,17 +36,16 @@ function Hero() {
       <motion.div style={{ scale }} className="absolute inset-0">
         <motion.picture initial={{ clipPath: "inset(0 0 100% 0)" }} animate={{ clipPath: "inset(0 0 0% 0)" }} transition={{ duration: 1.6, ease }} className="block h-full w-full">
           <source media="(max-width: 767px)" srcSet={IMG.heroSm} />
-          <img src={IMG.hero} alt="DeckRite ULTRA woven PVC installed in a luxury RV interior" className="h-full w-full object-cover" />
+          <img src={IMG.hero} alt="Modern travel trailers parked across a mountain campground" style={{ objectPosition: "center 58%" }} className="h-full w-full object-cover" />
         </motion.picture>
       </motion.div>
       <div className="absolute inset-0 bg-gradient-to-r from-ink via-ink/70 to-transparent" />
       <div className="absolute inset-0 bg-gradient-to-t from-ink via-transparent to-transparent" />
-      <div className="grain absolute inset-0" />
 
       <motion.div ref={contentRef} style={{ y, opacity: op }} className="relative mx-auto flex min-h-[inherit] max-w-7xl flex-col justify-center px-6 pt-36 md:pt-48 lg:pt-56 md:pb-8">
         <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.6, duration: 0.8 }}
           className="mb-6 flex items-center gap-3 text-xs uppercase tracking-[0.35em] text-white/70">
-          <span className="h-px w-10 bg-brand" /> Rugged, Functional RV Flooring
+          <span className="h-px w-10 bg-brand" /> Ramps, decks and toy hauler floors
         </motion.div>
         <h1 className="max-w-4xl text-5xl font-extrabold leading-none tracking-tight text-white sm:text-7xl lg:text-[6.2rem]">
           <SplitText text="RV Flooring." delay={0.7} /><br />
@@ -55,10 +54,10 @@ function Hero() {
         </h1>
         <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1.5, duration: 0.8 }}
           className="mt-8 max-w-lg text-lg leading-relaxed text-white/70">
-          From feet-friendly woven PVC for interiors to durable Shield RV and DeckRite Plank for garages, ramps and decks.
+          OEM flooring for toy hauler ramps, decks and garages, plus ULTRA woven PVC for interiors. Supplied today for coaches such as Winnebago, Airstream and Rich Trailers.
         </motion.p>
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1.7, duration: 0.8 }} className="mt-10 flex flex-wrap gap-4">
-          <Btn {...contactLink("retailer")}>Find a Retailer</Btn><Btn variant="ghost" scrollTo="spaces">Explore Products</Btn>
+          <Btn {...contactLink("oem")}>OEM Inquiry</Btn><Btn variant="ghost" scrollTo="spaces">Explore Products</Btn>
         </motion.div>      </motion.div>
 
       <motion.div ref={panelRef} style={{ visibility: hidePanel ? "hidden" : "visible" }} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 2.2 }}
@@ -92,9 +91,9 @@ function Marquee() {
 }
 
 const spaces = [
-  { n: "01", title: "RV Interiors", link: "Explore ULTRA Woven PVC", to: "/application/interiors", img: IMG.interior, pos: "40% 50%", desc: "ULTRA woven PVC brings luxurious patterns, feet-friendly comfort and a touch of elegance to RV living spaces." },
-  { n: "02", title: "Toy Hauler Garages", link: "Explore Shield RV", to: "/application/sport-utility", img: IMG.garage, pos: "52% 40%", desc: "Shield RV is engineered for tougher environments, including toy hauler garages, enclosed and cargo trailers, and small and micro campers." },
-  { n: "03", title: "Ramps & Patio Decks", link: "Explore DeckRite Plank", to: "/application/ramp-deck", img: IMG.deck, pos: "42% 55%", desc: "DeckRite Plank pairs a realistic wood look with slip resistance and durability for ramps, exterior decks and toy hauler garages." },
+  { n: "01", title: "RV Interiors", link: "Explore ULTRA Woven PVC", to: "/application/interiors", img: IMG.interior, pos: "center center", desc: "ULTRA woven PVC brings luxurious patterns, feet-friendly comfort and a touch of elegance to RV living spaces." },
+  { n: "02", title: "Toy Hauler Garages", link: "Explore Shield RV", to: "/application/sport-utility", img: IMG.garage, pos: "center 48%", desc: "Shield RV is engineered for tougher environments, including toy hauler garages, enclosed and cargo trailers, and small and micro campers." },
+  { n: "03", title: "Ramps & Patio Decks", link: "Explore DeckRite Plank", to: "/application/ramp-deck", img: IMG.deck, pos: "center 58%", desc: "DeckRite Plank pairs a realistic wood look with slip resistance and durability for ramps, exterior decks and toy hauler garages." },
 ];
 
 function Spaces() {
@@ -117,7 +116,7 @@ function Spaces() {
               initial={{ opacity: 0, y: 60 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.9, ease, delay: i * 0.12 }}
               className={`group relative h-[420px] overflow-hidden md:h-full transition-[flex] duration-700 ease-out ${active === i ? "md:flex-[2.4]" : "md:flex-1"}`}>
               <Link to={s.to} className="absolute inset-0 z-10" aria-label={s.title} />
-              <img src={s.img} alt={s.title} style={{ objectPosition: s.pos }} className="absolute inset-0 h-full w-full object-cover transition-transform duration-[1.2s] group-hover:scale-110" />
+              <img src={s.img} alt={s.title} style={{ objectPosition: s.pos }} className="absolute inset-0 h-full w-full object-cover transition-transform duration-[1.2s] group-hover:scale-[1.03]" />
               <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/30 to-transparent" />
               <div className="absolute left-6 top-6 font-mono text-sm text-white/70">{s.n} / 03</div>
               <div className="absolute inset-x-0 bottom-0 p-8">
@@ -196,7 +195,7 @@ function Products() {
             <div
               onMouseMove={move}
               onMouseLeave={() => setZoom((z) => ({ ...z, on: false }))}
-              className="group relative aspect-[16/9] w-full cursor-crosshair overflow-hidden bg-black ring-1 ring-white/10 shadow-[0_50px_100px_-30px_rgba(0,0,0,0.8)]"
+              className="group relative aspect-[4/3] min-h-[420px] w-full cursor-crosshair overflow-hidden bg-black ring-1 ring-white/10 shadow-[0_50px_100px_-30px_rgba(0,0,0,0.8)] md:min-h-[520px]"
             >
               <AnimatePresence mode="popLayout">
                 <motion.div key={p.code} initial={{ opacity: 0, scale: 1.08 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.7, ease }} className="absolute inset-0">
@@ -205,7 +204,7 @@ function Products() {
                     alt={`${p.name} — ${p.zone} flooring sample`}
                     draggable={false}
                     className="absolute inset-0 h-full w-full select-none object-cover"
-                    style={{ transform: `scale(${zoom.on ? 2.6 : 1})`, transformOrigin: `${zoom.x}% ${zoom.y}%`, transition: "transform 0.45s cubic-bezier(.22,1,.36,1)" }}
+                    style={{ transform: `scale(${zoom.on ? 1.45 : 1})`, transformOrigin: `${zoom.x}% ${zoom.y}%`, transition: "transform 0.45s cubic-bezier(.22,1,.36,1)" }}
                   />
                 </motion.div>
               </AnimatePresence>
@@ -217,7 +216,7 @@ function Products() {
                 <span className="h-1.5 w-1.5 rounded-full bg-brand-light" /> {p.code}
               </div>
               <div className={`pointer-events-none absolute right-5 top-5 flex items-center gap-2 bg-black/40 px-3 py-2 text-[10px] uppercase tracking-[0.25em] backdrop-blur-md transition-opacity duration-300 ${zoom.on ? "opacity-100" : "opacity-0"}`}>
-                <MagnifyingGlassPlus size={14} weight="duotone" /> 2.6× Detail
+                <MagnifyingGlassPlus size={14} weight="duotone" /> Closer detail
               </div>
               <div className={`pointer-events-none absolute inset-x-0 bottom-5 flex justify-center transition-opacity duration-300 ${zoom.on ? "opacity-0" : "opacity-100"}`}>
                 <span className="flex items-center gap-2 rounded-full bg-black/50 px-4 py-2 text-xs text-white/80 backdrop-blur-md">
@@ -252,8 +251,8 @@ function Products() {
                 <span className="relative">View Color Options</span>
                 <span className="relative transition-transform duration-300 group-hover:translate-x-1">→</span>
               </Link>
-              <Link {...contactLink("retailer")} className="group inline-flex items-center gap-2 px-2 py-4 text-sm font-semibold uppercase tracking-wide text-white/80 hover:text-white">
-                Find a retailer <ArrowUpRight size={18} weight="bold" className="transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+              <Link {...contactLink("oem")} className="group inline-flex items-center gap-2 px-2 py-4 text-sm font-semibold uppercase tracking-wide text-white/80 hover:text-white">
+                OEM inquiry <ArrowUpRight size={18} weight="bold" className="transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
               </Link>
             </div>
           </div>
@@ -263,8 +262,8 @@ function Products() {
           {products.map((t, i) => (
             <Reveal key={t.code} delay={i * 0.08}>
               <button onClick={() => setActive(i)} className={`group relative block w-full text-left transition ${active === i ? "" : "opacity-60 hover:opacity-100"}`}>
-                <div className="relative aspect-[21/9] overflow-hidden ring-1 ring-white/10">
-                  <img src={t.thumb} alt={`${t.name} swatch`} className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-125" />
+                <div className="relative aspect-[4/3] overflow-hidden ring-1 ring-white/10">
+                  <img src={t.thumb} alt={`${t.name} swatch`} className="absolute inset-0 h-full w-full object-cover" />
                   {active === i && <motion.span layoutId="thumbRing" className="absolute inset-0 ring-2 ring-inset ring-brand-light" transition={{ type: "spring", stiffness: 300, damping: 30 }} />}
                 </div>
                 <div className="mt-2 flex items-center justify-between gap-2">
@@ -333,7 +332,7 @@ export default function Home() {
   useDocumentTitle("DeckRite RV | Vinyl Flooring for RV Interiors, Garages & Decks");
   return (
     <>
-      <Hero /><Marquee /><Spaces /><Products /><Lineup /><CtaSection action={{ label: "Send us a message", ...contactLink("retailer") }} />
+      <Hero /><Marquee /><Spaces /><Products /><Lineup /><CtaSection action={{ label: "Contact OEM sales", ...contactLink("oem") }} />
     </>
   );
 }

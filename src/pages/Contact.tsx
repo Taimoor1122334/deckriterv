@@ -3,7 +3,7 @@ import { ChangeEvent, FormEvent, MouseEvent, useEffect, useRef, useState } from 
 import { Link, useSearchParams } from "react-router-dom";
 import {
   ArrowRight, ArrowUpRight, ArrowsClockwise, BookOpen, ChatCircleDots, ChatText, CircleNotch, Lightning, MapPin,
-  NavigationArrow, PaperPlaneTilt, Phone, Question, SealCheck, Storefront, WarningCircle, type Icon,
+  NavigationArrow, PaperPlaneTilt, Phone, Question, SealCheck, Factory, WarningCircle, type Icon,
 } from "@phosphor-icons/react";
 import * as A from "../assets/images";
 import { ADDRESS_LINE, MAPS, SITE, type ContactTopic } from "../data/site";
@@ -15,9 +15,9 @@ import { scrollToId, useDocumentTitle } from "../lib/utils";
 type Topic = { id: ContactTopic; label: string; icon: Icon; title: string; blurb: string; cta: string; tip: string };
 const TOPICS: Topic[] = [
   {
-    id: "retailer", label: "Find a retailer", icon: Storefront, title: "Find a retailer", cta: "Get the list",
-    blurb: "DeckRite RV products are available to the public through retailers.",
-    tip: `Fastest route: call toll free ${SITE.phone.pretty} for a current list of retailers, or send us your city and state below.`,
+    id: "oem", label: "OEM inquiry", icon: Factory, title: "OEM inquiry", cta: "Contact OEM sales",
+    blurb: "Specifications, samples and flooring programs for RV manufacturers.",
+    tip: `Call toll free ${SITE.phone.pretty}, or send the coach type and application — toy hauler ramp, deck, garage or interior.`,
   },
   {
     id: "product", label: "Product question", icon: ChatCircleDots, title: "Product question", cta: "Ask a question",
@@ -104,7 +104,7 @@ function Hero() {
         </h1>
         <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1.0, duration: 0.8 }}
           className="mt-6 max-w-lg text-lg leading-relaxed text-white/65">
-          Finding a retailer, choosing a product or checking your warranty? The DeckRite RV team in North Little Rock, Arkansas is a call or a message away.
+          Specifying a floor, choosing a product or checking a warranty? The DeckRite RV team in North Little Rock, Arkansas works directly with OEM partners.
         </motion.p>
 
         <a href={SITE.phone.href} className="group mt-12 inline-block" aria-label={`Call toll free ${SITE.phone.pretty}`}>
@@ -374,7 +374,7 @@ function FormSection({ topic, setTopic }: { topic: ContactTopic; setTopic: (t: C
               className="mt-10 border-l-2 border-brand bg-white p-6 shadow-[0_20px_40px_-30px_rgba(0,0,0,0.4)]">
               <div className="flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.25em] text-brand"><Lightning size={14} weight="fill" /> Tip · {t.label}</div>
               <p className="mt-3 leading-relaxed text-ink/70">{t.tip}</p>
-              {topic === "retailer" && <a href={SITE.phone.href} className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-brand"><Phone size={16} weight="duotone" /> Call {SITE.phone.pretty}</a>}
+              {topic === "oem" && <a href={SITE.phone.href} className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-brand"><Phone size={16} weight="duotone" /> Call {SITE.phone.pretty}</a>}
               {topic === "warranty" && <WarrantyLink className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-brand"><SealCheck size={16} weight="duotone" /> View the warranty (PDF)</WarrantyLink>}
             </motion.div>
           </AnimatePresence>
@@ -473,15 +473,19 @@ function Resources() {
 }
 
 /* ------------------------------------------------------------------ page -- */
-const isTopic = (v: string | null): v is ContactTopic => !!v && TOPICS.some((t) => t.id === v);
+const topicFromParam = (v: string | null): ContactTopic | null => {
+  if (v === "retailer" || v === "oem") return "oem";
+  return v && TOPICS.some((t) => t.id === v) ? (v as ContactTopic) : null;
+};
 
 export default function Contact() {
   useDocumentTitle("Contact Us | DeckRite RV");
   const [params] = useSearchParams();
   const param = params.get("topic");
-  const [topic, setTopic] = useState<ContactTopic>(isTopic(param) ? param : "product");
+  const [topic, setTopic] = useState<ContactTopic>(topicFromParam(param) ?? "product");
   useEffect(() => {
-    if (isTopic(param)) setTopic(param);
+    const next = topicFromParam(param);
+    if (next) setTopic(next);
   }, [param]);
   const choose = (t: ContactTopic) => { setTopic(t); scrollToId("form"); };
   return (

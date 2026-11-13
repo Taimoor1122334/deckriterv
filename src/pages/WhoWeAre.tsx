@@ -10,7 +10,7 @@ import { useDocumentTitle } from "../lib/utils";
 function Hero() {
   const ref = useRef(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
-  const scale = useTransform(scrollYProgress, [0, 1], [1.05, 1.25]);
+  const scale = useTransform(scrollYProgress, [0, 1], [1, 1.06]);
   const y = useTransform(scrollYProgress, [0, 1], [0, 160]);
   const op = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
   return (
@@ -96,7 +96,7 @@ function Story() {
           </Reveal>
           <Reveal delay={0.3}>
             <p className="mt-5 leading-relaxed text-ink/60">
-              DeckRite RV products offer a variety of application options. They are engineered to be rugged and functional and at the same time add elegance and contemporary design to your RV investment. Whether your needs are for the garage floor of your toy hauler or upgrading the floors throughout your aging RV, DeckRite has the products you need.
+              DeckRite RV products are engineered to be rugged and functional, and to add a contemporary floor to the coach. We supply original equipment manufacturers for toy hauler garages, ramps, decks and interiors — including coaches built by Winnebago, Airstream and Rich Trailers.
             </p>
           </Reveal>
           <Reveal delay={0.4}>
@@ -128,7 +128,7 @@ const markets = [
   },
   {
     icon: Tree, name: "RV", brand: "DeckRite RV", img: A.whoRv,
-    desc: "ULTRA woven PVC, Shield RV and DeckRite Plank for towable travel trailers, fifth wheels, sport trailers and toy haulers.",
+    desc: "ULTRA woven PVC, Shield RV and DeckRite Plank, supplied to OEM builders of towable trailers, fifth wheels and toy haulers.",
     href: "/application/interiors", external: false,
   },
 ];

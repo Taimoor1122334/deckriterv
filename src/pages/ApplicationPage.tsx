@@ -20,7 +20,7 @@ function Hero({ app }: { app: NonNullable<ReturnType<typeof getApplication>> }) 
   const hintRef = useRef<HTMLDivElement>(null);
   const { hideHint } = useHeroCrowding(ref, contentRef, hintRef);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
-  const scale = useTransform(scrollYProgress, [0, 1], [1.05, 1.25]);
+  const scale = useTransform(scrollYProgress, [0, 1], [1, 1.06]);
   const y = useTransform(scrollYProgress, [0, 1], [0, 160]);
   const op = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
   return (
@@ -198,7 +198,7 @@ function Colors({ app }: { app: NonNullable<ReturnType<typeof getApplication>> }
             </p>
           </Reveal>
         </div>
-        <SwatchViewer swatches={app.colors} thumbsPerRow={4} />
+          <SwatchViewer swatches={app.colors} thumbsPerRow={2} />
       </div>
     </section>
   );

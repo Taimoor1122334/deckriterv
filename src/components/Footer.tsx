@@ -47,7 +47,7 @@ export default function Footer() {
                 <SealCheck size={15} weight="duotone" className="text-brand-light" /> Warranty <span className="text-white/30">PDF</span>
               </WarrantyLink>
               <Link {...contactLink("brochure")} className={linkCls}>Free PDF Brochure</Link>
-              <Link {...contactLink("retailer")} className={linkCls}>Find a Retailer</Link>
+              <Link {...contactLink("oem")} className={linkCls}>OEM Inquiry</Link>
             </div>
           </div>
         </div>

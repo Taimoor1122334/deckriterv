@@ -43,7 +43,7 @@ export const APPLICATIONS: Application[] = [
     bannerCaption: "Diamond plating inside a toy hauler",
     lifestyle: A.lifeSport,
     lifestyleTitle: "Garage floors, enclosed & cargo trailers, small and micro campers.",
-    lifestyleText: "Shield RV is manufactured with virgin PVC and high-tech polymeric plasticizers for long-term flexibility and performance. The PVC film is extruded onto a non-woven polyester backing that provides dimensional stability and a superior adhering substrate to wood or aluminum. Standard rolls run 102\" wide (8.5') × 100' long — shorter rolls available through retailers.",
+    lifestyleText: "Shield RV is manufactured with virgin PVC and high-tech polymeric plasticizers for long-term flexibility and performance. The PVC film is extruded onto a non-woven polyester backing that provides dimensional stability and a superior adhering substrate to wood or aluminum. Standard rolls run 102\" wide (8.5') × 100' long — shorter rolls are available on request.",
     intro: [
       "DeckRite offers the Shield RV product in a variety of colors and embossing designs. Shield RV in either 3mm Diamond Plate or 2.15mm Raised Coin is engineered to resist the rigors of tougher environments and applications.",
       "Common uses for Shield RV are on the garage floors of Toy Haulers, in Enclosed Trailers, Cargo Trailers and in Small and Micro Campers.",
@@ -92,7 +92,7 @@ export const APPLICATIONS: Application[] = [
     lifestyleText: "Over the years the function of toy hauler ramps has evolved to include using them as exterior decks. Plank delivers a realistic wood look for these installations and at the same time provides the slip resistance and durability you would expect from a more industrial-looking product. It reflects a more relaxing setting and truly makes you feel right at home enjoying the comfort of your deck.",
     intro: [
       "The DeckRite Plank product was created for applications on these exterior decks and ramps. Plank delivers a realistic wood look for these installations and at the same time provides the slip resistance and durability you would expect from a more industrial looking product.",
-      "DeckRite Plank is available in either Gray or Brown. It is manufactured 102\" wide with standard size rolls 102' long (shorter rolls are available through retailers). The Plank is constructed with 80 mils of virgin PVC laminated to an 80-gram non-woven polyester backing.",
+      "DeckRite Plank is available in either Gray or Brown. It is manufactured 102\" wide with standard size rolls 102' long (shorter rolls are available on request). The Plank is constructed with 80 mils of virgin PVC laminated to an 80-gram non-woven polyester backing.",
     ],
     statement: "Use Plank on the garage floor and the deck for a continuous, uninterrupted flow of design.",
     specs: [

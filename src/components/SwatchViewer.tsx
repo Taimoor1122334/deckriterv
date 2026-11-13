@@ -5,8 +5,8 @@ import { Reveal } from "./anim";
 
 export type Swatch = { name: string; group?: string; thumb: string; img: string; tint: string };
 
-// Large texture viewer + thumbnail rail. Click a thumb to load it into the
-// viewer; hover the viewer to zoom 2.6x toward the cursor.
+// Large color sample + thumbnail rail. Click a thumb to load it; hover the
+// sample for a light close-up, without cropping the color into a thin strip.
 export default function SwatchViewer({ swatches, thumbsPerRow = 3, wide = false }: { swatches: Swatch[]; thumbsPerRow?: number; wide?: boolean }) {
   const [active, setActive] = useState(0);
   const [zoom, setZoom] = useState({ x: 50, y: 50, on: false });
@@ -21,7 +21,7 @@ export default function SwatchViewer({ swatches, thumbsPerRow = 3, wide = false 
         <div
           onMouseMove={move}
           onMouseLeave={() => setZoom((z) => ({ ...z, on: false }))}
-          className="group relative aspect-[16/10] w-full cursor-crosshair overflow-hidden bg-black ring-1 ring-white/10 shadow-[0_50px_100px_-30px_rgba(0,0,0,0.8)]"
+          className="group relative aspect-[4/3] min-h-[420px] w-full cursor-crosshair overflow-hidden bg-black ring-1 ring-white/10 shadow-[0_50px_100px_-30px_rgba(0,0,0,0.8)] md:min-h-[520px]"
         >
           <AnimatePresence mode="popLayout">
             <motion.div key={p.name} initial={{ opacity: 0, scale: 1.08 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] as const }} className="absolute inset-0">
@@ -30,7 +30,7 @@ export default function SwatchViewer({ swatches, thumbsPerRow = 3, wide = false 
                 alt={`${p.name} flooring swatch`}
                 draggable={false}
                 className="absolute inset-0 h-full w-full select-none object-cover"
-                style={{ transform: `scale(${zoom.on ? 2.6 : 1})`, transformOrigin: `${zoom.x}% ${zoom.y}%`, transition: "transform 0.45s cubic-bezier(.22,1,.36,1)" }}
+                style={{ transform: `scale(${zoom.on ? 1.45 : 1})`, transformOrigin: `${zoom.x}% ${zoom.y}%`, transition: "transform 0.45s cubic-bezier(.22,1,.36,1)" }}
               />
             </motion.div>
           </AnimatePresence>
@@ -42,7 +42,7 @@ export default function SwatchViewer({ swatches, thumbsPerRow = 3, wide = false 
             <span className="h-1.5 w-1.5 rounded-full bg-brand-light" /> {p.group ?? "Swatch"}
           </div>
           <div className={`pointer-events-none absolute right-5 top-5 flex items-center gap-2 bg-black/40 px-3 py-2 text-[10px] uppercase tracking-[0.25em] text-white/80 backdrop-blur-md transition-opacity duration-300 ${zoom.on ? "opacity-100" : "opacity-0"}`}>
-            <MagnifyingGlassPlus size={14} weight="duotone" /> 2.6× Detail
+            <MagnifyingGlassPlus size={14} weight="duotone" /> Closer detail
           </div>
           <div className={`pointer-events-none absolute inset-x-0 bottom-5 flex justify-center transition-opacity duration-300 ${zoom.on ? "opacity-0" : "opacity-100"}`}>
             <span className="flex items-center gap-2 rounded-full bg-black/50 px-4 py-2 text-xs text-white/80 backdrop-blur-md">
@@ -59,11 +59,11 @@ export default function SwatchViewer({ swatches, thumbsPerRow = 3, wide = false 
             {p.group && <div className="mt-2 text-xs uppercase tracking-[0.3em] text-white/40">{p.group}</div>}
           </motion.div>
         </AnimatePresence>
-        <div className={`mt-6 grid gap-2 sm:grid-cols-2 lg:grid-cols-${thumbsPerRow}`} style={{ gridTemplateColumns: `repeat(${Math.min(thumbsPerRow, 4)}, minmax(0,1fr))` }}>
+        <div className="mt-6 grid gap-3" style={{ gridTemplateColumns: `repeat(${Math.min(thumbsPerRow, 2)}, minmax(0,1fr))` }}>
           {swatches.map((t, i) => (
-            <button key={t.name} onClick={() => setActive(i)} className={`group relative block text-left transition ${active === i ? "" : "opacity-60 hover:opacity-100"}`}>
-              <div className={`relative aspect-square overflow-hidden ring-1 ring-white/10 ${wide ? "" : ""}`}>
-                <img src={t.thumb} alt={`${t.name} swatch`} className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-125" />
+            <button key={t.name} onClick={() => setActive(i)} className={`group relative block text-left transition ${active === i ? "" : "opacity-70 hover:opacity-100"}`}>
+              <div className={`relative aspect-[4/3] min-h-[120px] overflow-hidden ring-1 ring-white/10 ${wide ? "" : ""}`}>
+                <img src={t.thumb} alt={`${t.name} swatch`} className="absolute inset-0 h-full w-full object-cover" />
                 {active === i && <motion.span layoutId="swRing" className="absolute inset-0 ring-2 ring-inset ring-brand-light" transition={{ type: "spring", stiffness: 300, damping: 30 }} />}
               </div>
               <div className="mt-2 flex items-center justify-between gap-2">

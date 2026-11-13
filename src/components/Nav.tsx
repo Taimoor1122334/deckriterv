@@ -130,9 +130,9 @@ export default function Nav() {
           </nav>
 
           <div className="hidden items-center gap-5 lg:flex">
-            <Link {...contactLink("retailer")} className="group relative overflow-hidden bg-brand px-5 py-3 text-xs font-semibold uppercase tracking-widest text-white">
+            <Link {...contactLink("oem")} className="group relative overflow-hidden bg-brand px-5 py-3 text-xs font-semibold uppercase tracking-widest text-white">
               <span className="absolute inset-0 -translate-x-full bg-white/15 transition-transform duration-500 group-hover:translate-x-0" />
-              <span className="relative">Find a Retailer</span>
+              <span className="relative">OEM Inquiry</span>
             </Link>
           </div>
 

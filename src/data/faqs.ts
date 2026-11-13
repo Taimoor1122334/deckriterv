@@ -15,8 +15,8 @@ export const FAQS: Faq[] = [
   {
     id: "availability",
     topic: "Availability",
-    q: "Are DeckRite RV products available to the public?",
-    a: "Yes. Call DeckRite toll free (888) 450-3325 for a current list of retailers.",
+    q: "Who is DeckRite RV flooring supplied to?",
+    a: "DeckRite RV supplies flooring to original equipment manufacturers, including coaches such as those built by Winnebago, Airstream and Rich Trailers. Online listing is limited to two authorized retailers. For specifications or an OEM program, call DeckRite toll free (888) 450-3325.",
     visual: "retailers",
   },
   {

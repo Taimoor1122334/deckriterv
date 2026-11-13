@@ -12,7 +12,7 @@ import { fileURLToPath } from "url";
 const ROOT = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
 const OUT = path.join(ROOT, "src/assets/images");
 const DOCS = path.join(ROOT, "src/assets/docs");
-const CACHE = "/tmp/dl";
+const CACHE = path.join(ROOT, ".cache", "img-src");
 fs.mkdirSync(OUT, { recursive: true });
 fs.mkdirSync(DOCS, { recursive: true });
 fs.mkdirSync(CACHE, { recursive: true });
@@ -25,22 +25,18 @@ const SWATCHES = ["black-diamond", "gray-diamond", "dark-gray-speckled-diamond",
   "tan-teak", "gray-teak", "colonial", "pillar-grey", "pillar-tan", "brown-plank", "gray-plank"];
 
 const SOURCES = {
-  // authentic client imagery - deckriterv.com
-  "interiors-slider-1920.jpg": `${DRV}/img/header/interiors-slider-1920.jpg`,
-  "sport-slider-1920.jpg": `${DRV}/img/header/sport-slider-1920.jpg`,
-  "ramp-slider-1920.jpg": `${DRV}/img/header/ramp-slider-1920.jpg`,
+  // authentic client swatches - deckriterv.com (color samples, not lifestyle photos)
   ...Object.fromEntries(SWATCHES.map((s) => [`${s}.jpg`, `${DRV}/img/swatches/${s}.jpg`])),
   "DeckRite_RV_Warranty.pdf": `${DRV}/files/DeckRite_RV_Warranty.pdf`,
   // sister brand - deckrite.com
   "dr-hero_image.png": "https://deckrite.com/wp-content/uploads/2026/10/hero_image.png",
   "dr-second-section-image.png": "https://deckrite.com/wp-content/themes/deckrite/assets/images/second-section-image.png",
-  // stock photography - Pexels
-  "quad-trailer.jpg": pexels(9331870),
-  "caravan-deck.jpg": pexels(7163689),
-  "rv-kitchen.jpg": pexels(7163683),
-  "rv-bikes.jpg": pexels(35418212),
-  "couple-rv.jpg": pexels(13304737),
-  "rv-interior-lights.jpg": pexels(16746356),
+  // Pexels stock. Wide, current coaches — the old site sliders were tight crops
+  // and the sport slider included a person the client asked us to remove.
+  "hero-camp.jpg": pexels(17816414),
+  "air-deck.jpg": pexels(18764826),
+  "air-side.jpg": pexels(39523694),
+  "rv-interior.jpg": pexels(16746356),
   "pontoon.jpg": pexels(39242500),
   "yellowstone-rvs.jpg": pexels(29344876),
   "factory-rolls.jpg": pexels(236748),
@@ -62,7 +58,13 @@ for (const [file, url] of Object.entries(SOURCES)) {
 const camel = (s) => s.replace(/-([a-z0-9])/g, (_, c) => c.toUpperCase());
 const exports_ = [];
 async function emit(srcFile, outName, opts) {
-  let p = sharp(path.join(CACHE, srcFile));
+  const src = path.join(CACHE, srcFile);
+  const meta = await sharp(src).metadata();
+  let p = sharp(src);
+  if (opts.cropRight) {
+    const width = Math.max(1, Math.round(meta.width * (1 - opts.cropRight)));
+    p = p.extract({ left: 0, top: 0, width, height: meta.height });
+  }
   if (opts.extract) p = p.extract(opts.extract);
   if (opts.resize) p = p.resize(opts.resize[0], opts.resize[1], { kernel: "lanczos3", fit: "cover" });
   if (opts.sharpen) p = p.sharpen(opts.sharpen);
@@ -71,25 +73,23 @@ async function emit(srcFile, outName, opts) {
   console.log(outName.padEnd(36), (buf.length / 1024).toFixed(0) + " KB");
 }
 
-// Home + banners: right half of the 1920x567 sliders (left half has baked-in titles)
-const slider = (f, ex, rs, name, q = 70) => emit(f, name, { extract: ex, resize: rs, sharpen: { sigma: 0.7 }, q });
-await slider("interiors-slider-1920.jpg", { left: 1000, top: 0, width: 920, height: 567 }, [1400, 863], "hero-desktop");
-await slider("interiors-slider-1920.jpg", { left: 1010, top: 0, width: 330, height: 567 }, [460, 793], "hero-mobile", 72);
-await slider("interiors-slider-1920.jpg", { left: 990, top: 0, width: 930, height: 567 }, [1000, 612], "app-interior");
-await slider("sport-slider-1920.jpg", { left: 990, top: 0, width: 930, height: 567 }, [1000, 612], "app-garage");
-await slider("ramp-slider-1920.jpg", { left: 990, top: 0, width: 930, height: 567 }, [1000, 612], "app-deck");
-await slider("sport-slider-1920.jpg", { left: 960, top: 0, width: 960, height: 567 }, [1240, 730], "banner-sport", 66);
-await slider("ramp-slider-1920.jpg", { left: 960, top: 0, width: 960, height: 567 }, [1240, 730], "banner-ramp", 66);
-await slider("interiors-slider-1920.jpg", { left: 960, top: 0, width: 960, height: 567 }, [1240, 730], "banner-interiors", 66);
+// Wide frames only. No tight crops, and no coach with a brand the client is not supplying yet.
+const photo = (f, name, q = 68, w = 1400) => emit(f, name, { resize: [w, null], q });
+await photo("hero-camp.jpg", "hero-desktop", 74, 1800);
+await photo("hero-camp.jpg", "hero-mobile", 72, 1100);
+await photo("rv-interior.jpg", "app-interior", 70, 1400);
+await photo("yellowstone-rvs.jpg", "app-garage", 70, 1400);
+await photo("air-deck.jpg", "app-deck", 70, 1400);
+await photo("yellowstone-rvs.jpg", "banner-sport", 68, 1400);
+await photo("air-side.jpg", "banner-ramp", 68, 1400);
+await photo("rv-interior.jpg", "banner-interiors", 68, 1400);
 
-// Application pages - stock heroes / lifestyle
-const photo = (f, name, q = 64, w = 1200) => emit(f, name, { resize: [w, null], q });
-await photo("quad-trailer.jpg", "page-sport-hero");
-await photo("caravan-deck.jpg", "page-ramp-hero");
-await photo("rv-kitchen.jpg", "page-interiors-hero");
-await photo("rv-bikes.jpg", "life-sport");
-await photo("couple-rv.jpg", "life-ramp");
-await photo("rv-interior-lights.jpg", "life-interiors");
+await photo("yellowstone-rvs.jpg", "page-sport-hero", 70, 1600);
+await photo("air-side.jpg", "page-ramp-hero", 70, 1600);
+await photo("rv-interior.jpg", "page-interiors-hero", 70, 1600);
+await photo("hero-camp.jpg", "life-sport", 68, 1400);
+await photo("air-deck.jpg", "life-ramp", 68, 1400);
+await photo("air-side.jpg", "life-interiors", 68, 1400);
 
 // Who We Are
 await emit("dr-hero_image.png", "who-hero", { resize: [1280, null], q: 68 });
@@ -103,15 +103,15 @@ await emit("faq-hero.jpg", "faq-hero", { extract: { left: 348, top: 0, width: 85
 await photo("faq-install.jpg", "faq-install", 66, 1000);
 await photo("faq-mop.jpg", "faq-mop", 66, 1000);
 
-// Authentic swatches: thumb for grids, sharpened upscale for the zoom viewer
+// Authentic swatches, kept large enough to read as a color sample rather than a tight crop.
 for (const s of SWATCHES) {
-  await emit(`${s}.jpg`, `sw-${s}-thumb`, { resize: [300, 300], q: 76, sub: "4:4:4" });
-  await emit(`${s}.jpg`, `sw-${s}-hd`, { resize: [820, 820], sharpen: { sigma: 1.0, m1: 0.7, m2: 1.5 }, q: 64, sub: "4:4:4" });
+  await emit(`${s}.jpg`, `sw-${s}-thumb`, { resize: [560, 560], q: 80, sub: "4:4:4" });
+  await emit(`${s}.jpg`, `sw-${s}-hd`, { resize: [1200, 1200], sharpen: { sigma: 0.3, m1: 0.4, m2: 0.5 }, q: 74, sub: "4:4:4" });
 }
 
 fs.writeFileSync(path.join(OUT, "index.ts"), `/* AUTO-GENERATED by scripts/gen-images.mjs - do not edit by hand.
-   Sources: deckriterv.com (sliders + swatches), deckrite.com (who-we-are imagery),
-   Pexels stock (page heroes / lifestyle / FAQ visuals). See SOURCES in the script. */
+   Sources: deckriterv.com (swatches), deckrite.com (who-we-are deck imagery),
+   Pexels stock (wide RV heroes / lifestyle / FAQ visuals). See SOURCES in the script. */
 ${exports_.join("\n")}
 `);
 

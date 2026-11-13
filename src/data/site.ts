@@ -46,7 +46,7 @@ export const WARRANTY_FACTS = [
   "Other components of the RV, and normal wear and tear such as fading or abrasion, are not covered.",
 ];
 
-export type ContactTopic = "retailer" | "product" | "warranty" | "brochure" | "other";
+export type ContactTopic = "oem" | "product" | "warranty" | "brochure" | "other";
 /** Router target for the contact form, optionally pre-selecting a topic. */
 export const contactLink = (topic?: ContactTopic) => ({
   to: topic ? `/contact?topic=${topic}` : "/contact",

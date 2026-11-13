@@ -16,12 +16,12 @@ type CtaProps = {
 
 export default function CtaSection({
   id = "cta",
-  eyebrow = "Need help finding a retailer?",
-  titleA = "Upgrade your RV.",
-  titleB = "with DeckRite.",
-  text = `DeckRite RV products are available to the public. Call ${SITE.phone.pretty} for a current list of retailers.`,
+  eyebrow = "Built for OEM partners",
+  titleA = "Specify the floor.",
+  titleB = "We'll build it.",
+  text = `DeckRite RV flooring is supplied to original equipment manufacturers. Online listing is limited to two authorized retailers. Call ${SITE.phone.pretty} to talk with our OEM team.`,
   action,
-  image = A.appDeck,
+  image = A.heroDesktop,
 }: CtaProps) {
   const ref = useRef(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "center center"] });
