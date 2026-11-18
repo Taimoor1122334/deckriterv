@@ -1,7 +1,9 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import { Link, Navigate, useParams } from "react-router-dom";
-import { ArrowLeft, Question, SealCheck, Wrench } from "@phosphor-icons/react";
+import { ArrowLeft, Broom, FilePdf, Question, SealCheck, Wrench } from "@phosphor-icons/react";
+import CareSheetLink from "../components/CareSheetLink";
+import SpecSheetLink from "../components/SpecSheetLink";
 import WarrantyLink from "../components/WarrantyLink";
 import { SITE } from "../data/site";
 import { scrollToId, useDocumentTitle } from "../lib/utils";
@@ -33,7 +35,7 @@ function Hero({ app }: { app: NonNullable<ReturnType<typeof getApplication>> }) 
       <div className="absolute inset-0 bg-gradient-to-t from-ink via-transparent to-ink/40" />
       <div className="grain absolute inset-0" />
 
-      <motion.div ref={contentRef} style={{ y, opacity: op }} className="relative mx-auto flex min-h-[inherit] max-w-7xl flex-col justify-center px-6 pt-36 md:pt-48 lg:pt-56 md:pb-8">
+      <motion.div ref={contentRef} style={{ y, opacity: op }} className="relative mx-auto flex min-h-[inherit] site flex-col justify-center pt-36 md:pt-48 lg:pt-56 md:pb-8">
         <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.5, duration: 0.8 }}>
           <Link to="/" className="mb-6 inline-flex items-center gap-2 text-xs uppercase tracking-[0.3em] text-white/60 transition hover:text-white">
             <ArrowLeft size={16} weight="bold" /> All applications
@@ -42,7 +44,7 @@ function Hero({ app }: { app: NonNullable<ReturnType<typeof getApplication>> }) 
             <span className="h-px w-10 bg-brand" /> {app.eyebrow}
           </p>
         </motion.div>
-        <h1 className="max-w-4xl text-5xl font-extrabold leading-none tracking-tight text-white sm:text-7xl lg:text-[5.6rem]">
+        <h1 className="max-w-[16ch] text-5xl font-extrabold leading-none tracking-tight text-white sm:text-7xl lg:text-[5.6rem] xl:text-[6.8rem] 2xl:text-[8rem]">
           <SplitText text={app.title[0]} delay={0.6} /><br />
           <SplitText text={app.title[1]} delay={0.8} className="text-white/90" /><br />
           <SplitText text={app.title[2]} delay={1.0} className="italic font-serif font-normal text-brand-light" />
@@ -66,7 +68,7 @@ function Hero({ app }: { app: NonNullable<ReturnType<typeof getApplication>> }) 
 function Intro({ app }: { app: NonNullable<ReturnType<typeof getApplication>> }) {
   return (
     <section id="story" className="bg-paper py-24 md:py-32">
-      <div className="mx-auto max-w-7xl px-6">
+      <div className="mx-auto site">
         <div className="grid gap-12 lg:grid-cols-[1.2fr_1fr] lg:gap-20">
           <div>
             <Eyebrow>{app.product}</Eyebrow>
@@ -91,6 +93,22 @@ function Intro({ app }: { app: NonNullable<ReturnType<typeof getApplication>> })
             </Reveal>
           ))}
         </div>
+        {(app.specSheet || app.careSheet) && (
+          <Reveal delay={0.2}>
+            <div className="mt-8 flex flex-wrap gap-3">
+              {app.specSheet && (
+                <SpecSheetLink id={app.specSheet} className="inline-flex items-center gap-2 border border-ink/15 bg-white px-5 py-3 text-sm font-semibold text-ink transition hover:border-brand hover:text-brand">
+                  <FilePdf size={18} weight="duotone" className="text-brand" /> Download the {app.product} spec sheet <span className="font-normal text-ink/40">(PDF)</span>
+                </SpecSheetLink>
+              )}
+              {app.careSheet && (
+                <CareSheetLink className="inline-flex items-center gap-2 border border-ink/15 bg-white px-5 py-3 text-sm font-semibold text-ink transition hover:border-brand hover:text-brand">
+                  <Broom size={18} weight="duotone" className="text-brand" /> Care and maintenance <span className="font-normal text-ink/40">(PDF)</span>
+                </CareSheetLink>
+              )}
+            </div>
+          </Reveal>
+        )}
       </div>
     </section>
   );
@@ -99,7 +117,7 @@ function Intro({ app }: { app: NonNullable<ReturnType<typeof getApplication>> })
 function Features({ app }: { app: NonNullable<ReturnType<typeof getApplication>> }) {
   return (
     <section className="bg-paper pb-24 md:pb-32">
-      <div className="mx-auto max-w-7xl px-6">
+      <div className="mx-auto site">
         <div className="mb-14 flex flex-col justify-between gap-6 md:flex-row md:items-end">
           <h2 className="max-w-xl text-4xl font-extrabold leading-none tracking-tight text-ink md:text-6xl">
             <SplitText text="Made for" /><br /><SplitText text="real applications." delay={0.2} className="font-serif italic font-normal" />
@@ -136,7 +154,7 @@ function Banner({ app }: { app: NonNullable<ReturnType<typeof getApplication>> }
       <motion.img src={app.banner} alt={app.bannerCaption} style={{ y, scale: 1.15 }} className="absolute inset-0 h-full w-full object-cover" />
       <div className="absolute inset-0 bg-ink/45" />
       <div className="grain absolute inset-0" />
-      <div className="relative mx-auto flex h-full max-w-7xl items-end px-6 pb-12">
+      <div className="relative mx-auto flex h-full site items-end pb-12">
         <Reveal>
           <p className="flex items-center gap-3 text-xs uppercase tracking-[0.35em] text-white/80">
             <span className="h-px w-10 bg-brand-light" /> {app.bannerCaption}
@@ -153,7 +171,7 @@ function Lifestyle({ app }: { app: NonNullable<ReturnType<typeof getApplication>
   const y = useTransform(scrollYProgress, [0, 1], [80, -80]);
   return (
     <section className="overflow-hidden bg-stone py-24 md:py-32">
-      <div className="mx-auto grid max-w-7xl items-center gap-14 px-6 lg:grid-cols-2 lg:gap-20">
+      <div className="mx-auto grid site items-center gap-14 lg:grid-cols-2 lg:gap-20">
         <div ref={ref} className="relative">
           <motion.div style={{ y }} className="relative aspect-[4/3] overflow-hidden shadow-[0_50px_100px_-30px_rgba(0,0,0,0.5)]">
             <img src={app.lifestyle} alt={app.lifestyleTitle} className="h-full w-full object-cover" />
@@ -184,7 +202,7 @@ function Colors({ app }: { app: NonNullable<ReturnType<typeof getApplication>> }
   return (
     <section id="colors" className="relative overflow-hidden bg-ink py-24 text-white md:py-28">
       <div className="grain absolute inset-0" />
-      <div className="relative mx-auto max-w-7xl px-6">
+      <div className="relative mx-auto site">
         <div className="mb-12 grid items-end gap-6 md:grid-cols-2">
           <div>
             <Eyebrow light>Design & Color Options</Eyebrow>
@@ -207,7 +225,7 @@ function Colors({ app }: { app: NonNullable<ReturnType<typeof getApplication>> }
 function Install({ app }: { app: NonNullable<ReturnType<typeof getApplication>> }) {
   return (
     <section className="bg-paper py-24 md:py-32">
-      <div className="mx-auto grid max-w-7xl gap-12 px-6 lg:grid-cols-[1fr_1.3fr] lg:gap-20">
+      <div className="mx-auto grid site gap-12 lg:grid-cols-[1fr_1.3fr] lg:gap-20">
         <div>
           <Eyebrow>Installation</Eyebrow>
           <h2 className="text-4xl font-extrabold leading-none tracking-tight text-ink md:text-6xl">
@@ -230,6 +248,11 @@ function Install({ app }: { app: NonNullable<ReturnType<typeof getApplication>> 
               <WarrantyLink className="inline-flex items-center gap-2 font-semibold text-brand transition hover:text-brand-dark">
                 <SealCheck size={18} weight="duotone" /> {SITE.warranty.title} <span className="font-normal text-ink/40">(PDF)</span>
               </WarrantyLink>
+              {app.careSheet && (
+                <CareSheetLink className="inline-flex items-center gap-2 font-semibold text-ink/70 transition hover:text-ink">
+                  <Broom size={18} weight="duotone" /> Care and maintenance <span className="font-normal text-ink/40">(PDF)</span>
+                </CareSheetLink>
+              )}
               <Link to="/faqs" className="inline-flex items-center gap-2 font-semibold text-ink/70 transition hover:text-ink">
                 <Question size={18} weight="duotone" /> Installation & care FAQs
               </Link>
@@ -244,7 +267,7 @@ function Install({ app }: { app: NonNullable<ReturnType<typeof getApplication>> 
 function Related() {
   return (
     <section className="bg-paper pb-24 md:pb-32">
-      <div className="mx-auto max-w-7xl px-6">
+      <div className="mx-auto site">
         <Eyebrow>Applications</Eyebrow>
         <h2 className="mb-12 max-w-2xl text-4xl font-extrabold leading-none tracking-tight text-ink md:text-6xl">
           <SplitText text="Explore the other" /><br /><SplitText text="applications." delay={0.2} className="font-serif italic font-normal" />

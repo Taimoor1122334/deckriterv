@@ -2,12 +2,13 @@ import { AnimatePresence, motion, useMotionValue, useSpring, useTransform, type 
 import { ChangeEvent, FormEvent, MouseEvent, useEffect, useRef, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import {
-  ArrowRight, ArrowUpRight, ArrowsClockwise, BookOpen, ChatCircleDots, ChatText, CircleNotch, Lightning, MapPin,
+  ArrowRight, ArrowUpRight, ArrowsClockwise, BookOpen, Broom, ChatCircleDots, ChatText, CircleNotch, Lightning, MapPin,
   NavigationArrow, PaperPlaneTilt, Phone, Question, SealCheck, Factory, WarningCircle, type Icon,
 } from "@phosphor-icons/react";
 import * as A from "../assets/images";
 import { ADDRESS_LINE, MAPS, SITE, type ContactTopic } from "../data/site";
 import { Btn, Eyebrow, Reveal, SplitText, ease } from "../components/anim";
+import CareSheetLink from "../components/CareSheetLink";
 import WarrantyLink from "../components/WarrantyLink";
 import SocialLinks from "../components/SocialLinks";
 import { scrollToId, useDocumentTitle } from "../lib/utils";
@@ -93,12 +94,12 @@ function Hero() {
       </div>
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-ink via-ink/85 to-ink/10" />
 
-      <div className="relative mx-auto max-w-7xl px-6">
+      <div className="relative mx-auto site">
         <motion.p initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.4, duration: 0.8 }}
           className="mb-6 flex items-center gap-3 text-xs uppercase tracking-[0.35em] text-white/70">
           <span className="h-px w-10 bg-brand" /> Contact Us
         </motion.p>
-        <h1 className="max-w-3xl text-5xl font-extrabold leading-none tracking-tight text-white sm:text-6xl lg:text-7xl">
+        <h1 className="max-w-[16ch] text-5xl font-extrabold leading-none tracking-tight text-white sm:text-6xl lg:text-7xl xl:text-8xl 2xl:text-9xl">
           <SplitText text="Let's talk" delay={0.5} /><br />
           <SplitText text="about your" delay={0.65} className="text-white/90" /> <SplitText text="floors." delay={0.8} className="font-serif italic font-normal text-brand-light" />
         </h1>
@@ -130,8 +131,8 @@ function Hero() {
 /* -------------------------------------------------------------- path cards -- */
 function Paths({ topic, onChoose }: { topic: ContactTopic; onChoose: (t: ContactTopic) => void }) {
   return (
-    <section className="relative z-10 bg-paper px-6 pt-16 md:pt-20">
-      <div className="mx-auto grid max-w-7xl gap-3 sm:grid-cols-2 lg:grid-cols-4">
+    <section className="relative z-10 bg-paper pt-16 md:pt-20">
+      <div className="mx-auto grid site gap-3 sm:grid-cols-2 lg:grid-cols-4">
         {TOPICS.filter((t) => t.id !== "other").map((t, i) => (
           <motion.button key={t.id} type="button" onClick={() => onChoose(t.id)}
             initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1.2 + i * 0.1, duration: 0.8, ease }}
@@ -362,7 +363,7 @@ function FormSection({ topic, setTopic }: { topic: ContactTopic; setTopic: (t: C
   const t = topicOf(topic);
   return (
     <section id="form" className="bg-paper py-24 md:py-28">
-      <div className="mx-auto grid max-w-7xl gap-14 px-6 lg:grid-cols-[0.85fr_1.15fr] lg:gap-16">
+      <div className="mx-auto grid site gap-14 lg:grid-cols-[0.85fr_1.15fr] lg:gap-16">
         <div className="lg:sticky lg:top-28 lg:self-start">
           <Eyebrow>Send a message</Eyebrow>
           <h2 className="text-4xl font-extrabold leading-none tracking-tight text-ink md:text-6xl">
@@ -415,7 +416,7 @@ function MapSection() {
       <iframe title={`Map showing ${SITE.company}, ${ADDRESS_LINE}`} src={MAPS.embed} loading="lazy" referrerPolicy="no-referrer-when-downgrade" className="map-dark absolute inset-0 h-full w-full border-0" />
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-ink via-ink/50 to-transparent" />
       <div className="pointer-events-none absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-ink to-transparent" />
-      <div className="pointer-events-none relative mx-auto flex h-full max-w-7xl items-center px-6">
+      <div className="pointer-events-none relative mx-auto flex h-full site items-center">
         <Reveal className="pointer-events-auto w-full max-w-md">
           <div className="bg-ink/85 p-8 text-white ring-1 ring-white/10 backdrop-blur-xl md:p-10">
             <Eyebrow light>Find us</Eyebrow>
@@ -455,16 +456,17 @@ function Resources() {
   };
   return (
     <section className="bg-paper py-24 md:py-28">
-      <div className="mx-auto max-w-7xl px-6">
+      <div className="mx-auto site">
         <div className="mb-12 flex flex-col justify-between gap-6 md:flex-row md:items-end">
           <div>
             <Eyebrow>Before you write</Eyebrow>
             <h2 className="text-4xl font-extrabold leading-none tracking-tight text-ink md:text-5xl"><SplitText text="Your answer may" /><br /><SplitText text="already be here." delay={0.2} className="font-serif italic font-normal" /></h2>
           </div>
         </div>
-        <div className="grid gap-4 md:grid-cols-3">
+        <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
           <Reveal><Link to="/faqs" className={card}>{inner(Question, "FAQs", "Applications, availability, maintenance, installation and seaming, answered.", "Read the FAQs")}</Link></Reveal>
           <Reveal delay={0.1}><WarrantyLink className={card}>{inner(SealCheck, SITE.warranty.title, "The full DeckRite RV warranty terms, conditions and limitations.", `View PDF · ${SITE.warranty.meta.replace("PDF · ", "")}`, true)}</WarrantyLink></Reveal>
+          <Reveal delay={0.15}><CareSheetLink className={card}>{inner(Broom, "Care & maintenance", "The Shield RV cleaning, care and maintenance sheet.", "View PDF", true)}</CareSheetLink></Reveal>
           <Reveal delay={0.2}><Link to="/application/interiors" className={card}>{inner(BookOpen, "Explore the products", "ULTRA Woven PVC, Shield RV and DeckRite Plank, with every color option.", "View applications")}</Link></Reveal>
         </div>
       </div>

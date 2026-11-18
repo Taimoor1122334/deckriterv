@@ -81,7 +81,7 @@ export default function Nav() {
     <motion.header initial={{ y: -90 }} animate={{ y: 0 }} transition={{ duration: 0.8, ease }} className="fixed inset-x-0 top-0 z-50">
       {/* Utility bar - collapses once the page scrolls */}
       <div className={`hidden overflow-hidden bg-ink/70 backdrop-blur-md transition-all duration-500 md:block ${scrolled ? "max-h-0 opacity-0" : "max-h-12 border-b border-white/10 opacity-100"}`}>
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-2 text-xs text-white/60">
+        <div className="mx-auto flex site items-center justify-between py-2 text-xs text-white/60">
           <div className="flex items-center gap-6">
             <a href={SITE.phone.href} className="flex items-center gap-2 transition hover:text-white">
               <Phone size={14} weight="duotone" className="text-brand-light" /> Toll free
@@ -104,7 +104,7 @@ export default function Nav() {
 
       {/* Main bar */}
       <div ref={barRef} className={`relative z-50 transition-all duration-500 ${solid && !menuOpen ? "bg-ink/90 py-3 backdrop-blur-xl" : "py-5"}`}>
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-6">
+        <div className="mx-auto flex site items-center justify-between">
           <Link to="/" className="block" aria-label="DeckRite RV home">
             <Logo variant="nav" />
           </Link>
@@ -153,7 +153,7 @@ export default function Nav() {
               transition={{ duration: 0.3, ease }}
               className="absolute inset-x-0 top-full hidden pt-2 lg:block"
             >
-              <div className="mx-auto max-w-7xl px-6">
+              <div className="mx-auto site">
                 <div className="grid grid-cols-[1fr_1fr_1fr_0.85fr] gap-3 border border-white/10 bg-[#17181b] p-3 shadow-[0_40px_80px_-20px_rgba(0,0,0,0.7)]">
                   {APPS.map((a, i) => (
                     <motion.div key={a.slug} initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.05 + i * 0.06, duration: 0.45, ease }}>

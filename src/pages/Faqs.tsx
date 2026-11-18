@@ -10,6 +10,7 @@ import { FAQS, splitVerdict, type Faq } from "../data/faqs";
 import { SITE, WARRANTY_FACTS, contactLink } from "../data/site";
 import { Btn, Eyebrow, Reveal, SplitText, ease } from "../components/anim";
 import CtaSection from "../components/CtaSection";
+import CareSheetLink from "../components/CareSheetLink";
 import WarrantyLink from "../components/WarrantyLink";
 import Logo from "../components/Logo";
 import { scrollToId, useDocumentTitle } from "../lib/utils";
@@ -27,12 +28,12 @@ function Hero({ onPick }: { onPick: (i: number) => void }) {
       <div className="grain absolute inset-0" />
       <div className="pointer-events-none absolute -left-40 top-1/3 h-[480px] w-[480px] rounded-full bg-brand/20 blur-[140px]" />
       <div className="relative grid lg:min-h-[100svh] lg:grid-cols-2">
-        <motion.div style={{ y: textY }} className="relative z-10 flex flex-col justify-center px-6 pb-14 pt-36 md:pt-48 lg:pb-28 lg:pt-56 lg:pl-[max(1.5rem,calc((100vw_-_80rem)/2_+_1.5rem))] lg:pr-14">
+        <motion.div style={{ y: textY }} className="site relative z-10 flex flex-col justify-center pb-14 pt-36 md:pt-48 lg:w-full lg:pb-28 lg:pt-56 lg:pr-14">
           <motion.p initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.4, duration: 0.8 }}
             className="mb-6 flex items-center gap-3 text-xs uppercase tracking-[0.35em] text-white/70">
             <span className="h-px w-10 bg-brand" /> FAQs
           </motion.p>
-          <h1 className="text-5xl font-extrabold leading-none tracking-tight text-white sm:text-7xl lg:text-[5.4rem]">
+          <h1 className="max-w-[12ch] text-5xl font-extrabold leading-none tracking-tight text-white sm:text-7xl lg:text-[5.4rem] xl:text-[6.5rem] 2xl:text-[7.5rem]">
             <SplitText text="Questions?" delay={0.5} /><br />
             <SplitText text="Straight" delay={0.7} className="text-white/90" /><br />
             <SplitText text="answers." delay={0.9} className="font-serif italic font-normal text-brand-light" />
@@ -141,9 +142,14 @@ function Visual({ faq }: { faq: Faq }) {
               <motion.div {...stagger(3)} className="flex items-center gap-3 border border-ink/10 bg-paper p-4 text-sm font-semibold text-ink"><Drop size={22} weight="duotone" className="text-brand" /> Or a wet mop</motion.div>
             </div>
           </div>
-          <Link {...contactLink("product")} className="group mt-5 inline-flex items-center gap-2 text-sm font-semibold text-brand">
-            Tough clean-up? Ask DeckRite <ArrowRight size={14} weight="bold" className="transition group-hover:translate-x-1" />
-          </Link>
+          <div className="mt-5 flex flex-wrap items-center gap-x-6 gap-y-3">
+            <CareSheetLink className="inline-flex items-center gap-2 text-sm font-semibold text-brand">
+              <FilePdf size={16} weight="duotone" /> Shield RV care and maintenance (PDF)
+            </CareSheetLink>
+            <Link {...contactLink("product")} className="group inline-flex items-center gap-2 text-sm font-semibold text-ink/70 transition hover:text-ink">
+              Tough clean-up? Ask DeckRite <ArrowRight size={14} weight="bold" className="transition group-hover:translate-x-1" />
+            </Link>
+          </div>
         </div>
       );
     case "install":
@@ -210,7 +216,7 @@ function Explorer({ active, setActive }: { active: number; setActive: (i: number
   const idx = active < 0 ? 0 : active; // mobile can collapse all; desktop always shows one
   return (
     <section id="faq" className="bg-paper py-24 md:py-32">
-      <div className="mx-auto max-w-7xl px-6">
+      <div className="mx-auto site">
         <div className="mb-14 grid items-end gap-6 md:grid-cols-2">
           <div>
             <Eyebrow>Frequently asked</Eyebrow>
@@ -280,7 +286,7 @@ function Warranty() {
     <section id="warranty" className="relative overflow-hidden bg-ink py-24 text-white md:py-32">
       <div className="grain absolute inset-0" />
       <div className="pointer-events-none absolute -right-32 top-0 h-[520px] w-[520px] rounded-full bg-brand/20 blur-[160px]" />
-      <div className="relative mx-auto grid max-w-7xl items-center gap-16 px-6 lg:grid-cols-[1.1fr_0.9fr]">
+      <div className="relative mx-auto grid site items-center gap-16 lg:grid-cols-[1.1fr_0.9fr]">
         <div>
           <Eyebrow light>Warranty</Eyebrow>
           <h2 className="text-4xl font-extrabold leading-none tracking-tight md:text-6xl">
@@ -330,7 +336,7 @@ function Warranty() {
         </Reveal>
       </div>
 
-      <div className="relative mx-auto mt-20 max-w-7xl px-6">
+      <div className="relative mx-auto mt-20 site">
         <Reveal>
           <Link {...contactLink("brochure")} className="group flex flex-col items-start justify-between gap-6 border border-white/10 bg-white/[0.03] p-8 transition hover:border-white/25 md:flex-row md:items-center">
             <div className="flex items-center gap-5">

@@ -2,12 +2,14 @@ import { AnimatePresence, motion, useScroll, useTransform } from "framer-motion"
 import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import {
-  ArrowUpRight, CornersOut, Drop, FileText, Footprints, Headset, MagnifyingGlassPlus,
+  ArrowUpRight, Broom, CornersOut, Drop, FilePdf, FileText, Footprints, Headset, MagnifyingGlassPlus,
   Ruler, ShieldCheck, Stack, SunHorizon, Swatches, Tire,
 } from "@phosphor-icons/react";
 import * as A from "../assets/images";
 import { Btn, Reveal, SplitText } from "../components/anim";
 import CtaSection from "../components/CtaSection";
+import CareSheetLink from "../components/CareSheetLink";
+import SpecSheetLink from "../components/SpecSheetLink";
 import { useHeroCrowding } from "../lib/useHeroCrowding";
 import { contactLink } from "../data/site";
 import { useDocumentTitle } from "../lib/utils";
@@ -42,12 +44,12 @@ function Hero() {
       <div className="absolute inset-0 bg-gradient-to-r from-ink via-ink/70 to-transparent" />
       <div className="absolute inset-0 bg-gradient-to-t from-ink via-transparent to-transparent" />
 
-      <motion.div ref={contentRef} style={{ y, opacity: op }} className="relative mx-auto flex min-h-[inherit] max-w-7xl flex-col justify-center px-6 pt-36 md:pt-48 lg:pt-56 md:pb-8">
+      <motion.div ref={contentRef} style={{ y, opacity: op }} className="relative mx-auto flex min-h-[inherit] site flex-col justify-center pt-36 md:pt-48 lg:pt-56 md:pb-8">
         <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.6, duration: 0.8 }}
           className="mb-6 flex items-center gap-3 text-xs uppercase tracking-[0.35em] text-white/70">
           <span className="h-px w-10 bg-brand" /> Ramps, decks and toy hauler floors
         </motion.div>
-        <h1 className="max-w-4xl text-5xl font-extrabold leading-none tracking-tight text-white sm:text-7xl lg:text-[6.2rem]">
+        <h1 className="max-w-[18ch] text-5xl font-extrabold leading-none tracking-tight text-white sm:text-7xl lg:text-[6.2rem] xl:text-[7.5rem] 2xl:text-[8.75rem]">
           <SplitText text="RV Flooring." delay={0.7} /><br />
           <SplitText text="Rugged by Nature." delay={0.9} className="text-white/90" /><br />
           <SplitText text="Refined by Design." delay={1.1} className="italic font-serif font-normal text-brand-light" />
@@ -81,7 +83,7 @@ function Marquee() {
     <div className="overflow-hidden border-y border-ink/10 bg-paper py-6">
       <div className="marquee flex w-max gap-12 whitespace-nowrap">
         {[...items, ...items, ...items].map((t, i) => (
-          <span key={i} className="flex items-center gap-12 text-2xl font-bold uppercase tracking-tight text-ink/80 md:text-4xl">
+          <span key={i} className="flex items-center gap-12 text-2xl font-bold uppercase tracking-tight text-ink/80 md:text-4xl xl:text-6xl">
             {t}<span className="text-brand">✦</span>
           </span>
         ))}
@@ -100,21 +102,21 @@ function Spaces() {
   const [active, setActive] = useState(0);
   return (
     <section id="spaces" className="bg-paper py-28">
-      <div className="mx-auto max-w-7xl px-6">
+      <div className="mx-auto site">
         <div className="mb-7 grid items-end gap-5 md:mb-8 md:grid-cols-2">
           <div>
             <Reveal><p className="mb-4 text-xs uppercase tracking-[0.35em] text-brand">— Applications</p></Reveal>
-            <h2 className="text-4xl font-extrabold leading-none tracking-tight text-ink md:text-6xl">
+            <h2 className="text-4xl font-extrabold leading-none tracking-tight text-ink md:text-6xl xl:text-7xl 2xl:text-8xl">
               <SplitText text="The right flooring" /><br /><SplitText text="for every space." delay={0.2} className="font-serif italic font-normal" />
             </h2>
           </div>
           <Reveal delay={0.2}><p className="max-w-md text-ink/60 md:ml-auto">DeckRite RV offers flooring options for living areas, toy hauler garages, enclosed trailers, ramps and exterior decks.</p></Reveal>
         </div>
-        <div className="flex h-auto flex-col gap-3 md:h-[580px] md:flex-row">
+        <div className="flex h-auto flex-col gap-3 md:h-[580px] md:flex-row xl:h-[70vh] 2xl:h-[76vh]">
           {spaces.map((s, i) => (
             <motion.div key={s.title} onMouseEnter={() => setActive(i)} layout
               initial={{ opacity: 0, y: 60 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.9, ease, delay: i * 0.12 }}
-              className={`group relative h-[420px] overflow-hidden md:h-full transition-[flex] duration-700 ease-out ${active === i ? "md:flex-[2.4]" : "md:flex-1"}`}>
+              className={`group relative h-[420px] overflow-hidden md:h-full xl:h-full transition-[flex] duration-700 ease-out ${active === i ? "md:flex-[2.4]" : "md:flex-1"}`}>
               <Link to={s.to} className="absolute inset-0 z-10" aria-label={s.title} />
               <img src={s.img} alt={s.title} style={{ objectPosition: s.pos }} className="absolute inset-0 h-full w-full object-cover transition-transform duration-[1.2s] group-hover:scale-[1.03]" />
               <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/30 to-transparent" />
@@ -154,6 +156,7 @@ const products = [
       { icon: Footprints, label: "Surface", value: "Slip resistant" },
     ],
     to: "/application/ramp-deck",
+    specSheet: "plank" as const,
   },
   {
     name: "Raised Black Coin", code: "SHIELD RV", zone: "Shield RV · Raised Coin", img: A.swRaisedBlackCoinHd, thumb: A.swRaisedBlackCoinThumb, tint: "#26272a",
@@ -164,6 +167,8 @@ const products = [
       { icon: ShieldCheck, label: "Construction", value: "Virgin PVC" },
     ],
     to: "/application/sport-utility",
+    specSheet: "shield" as const,
+    careSheet: true,
   },
 ];
 
@@ -179,11 +184,11 @@ function Products() {
     <section className="relative overflow-hidden bg-ink py-14 text-white md:py-16">
       <div className="pointer-events-none absolute inset-0 opacity-60" style={{ background: `radial-gradient(60% 50% at 75% 40%, ${p.tint}33, transparent 70%)`, transition: "background 0.8s" }} />
       <div className="grain absolute inset-0" />
-      <div className="relative mx-auto max-w-7xl px-6">
+      <div className="relative mx-auto site">
         <div className="mb-7 grid items-end gap-5 md:mb-8 md:grid-cols-2">
           <div>
             <Reveal><p className="mb-4 flex items-center gap-3 text-xs uppercase tracking-[0.35em] text-brand-light"><Swatches size={18} weight="duotone" /> Design & Color Options</p></Reveal>
-            <h2 className="text-4xl font-extrabold leading-none tracking-tight md:text-[3.25rem]">
+            <h2 className="text-4xl font-extrabold leading-none tracking-tight md:text-[3.25rem] xl:text-6xl 2xl:text-7xl">
               <SplitText text="See the texture." /><br /><SplitText text="Find your finish." delay={0.2} className="font-serif italic font-normal text-brand-light" />
             </h2>
           </div>
@@ -195,7 +200,7 @@ function Products() {
             <div
               onMouseMove={move}
               onMouseLeave={() => setZoom((z) => ({ ...z, on: false }))}
-              className="group relative aspect-[4/3] min-h-[420px] w-full cursor-crosshair overflow-hidden bg-black ring-1 ring-white/10 shadow-[0_50px_100px_-30px_rgba(0,0,0,0.8)] md:min-h-[520px]"
+              className="group relative aspect-[4/3] min-h-[420px] w-full cursor-crosshair overflow-hidden bg-black ring-1 ring-white/10 shadow-[0_50px_100px_-30px_rgba(0,0,0,0.8)] md:min-h-[520px] xl:min-h-[640px] 2xl:min-h-[760px]"
             >
               <AnimatePresence mode="popLayout">
                 <motion.div key={p.code} initial={{ opacity: 0, scale: 1.08 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.7, ease }} className="absolute inset-0">
@@ -254,6 +259,16 @@ function Products() {
               <Link {...contactLink("oem")} className="group inline-flex items-center gap-2 px-2 py-4 text-sm font-semibold uppercase tracking-wide text-white/80 hover:text-white">
                 OEM inquiry <ArrowUpRight size={18} weight="bold" className="transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
               </Link>
+              {"specSheet" in p && p.specSheet && (
+                <SpecSheetLink id={p.specSheet} className="inline-flex items-center gap-2 px-2 py-4 text-sm font-semibold uppercase tracking-wide text-white/80 hover:text-white">
+                  <FilePdf size={18} weight="duotone" /> Spec sheet
+                </SpecSheetLink>
+              )}
+              {"careSheet" in p && p.careSheet && (
+                <CareSheetLink className="inline-flex items-center gap-2 px-2 py-4 text-sm font-semibold uppercase tracking-wide text-white/80 hover:text-white">
+                  <Broom size={18} weight="duotone" /> Care sheet
+                </CareSheetLink>
+              )}
             </div>
           </div>
         </div>
@@ -298,9 +313,9 @@ function Lineup() {
   ];
   return (
     <section className="bg-paper py-28">
-      <div className="mx-auto max-w-7xl px-6">
+      <div className="mx-auto site">
         <div className="mb-16 flex flex-col justify-between gap-6 md:flex-row md:items-end">
-          <h2 className="text-4xl font-extrabold leading-none tracking-tight text-ink md:text-6xl">
+          <h2 className="text-4xl font-extrabold leading-none tracking-tight text-ink md:text-6xl xl:text-7xl 2xl:text-8xl">
             <SplitText text="Rugged. Functional." /><br /><SplitText text="Made for RVs." delay={0.2} className="font-serif italic font-normal" />
           </h2>
           <Reveal><p className="max-w-sm text-ink/60">DeckRite RV products combine practical performance with comfort and contemporary style for a range of RV applications.</p></Reveal>

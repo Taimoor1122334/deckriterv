@@ -22,12 +22,12 @@ function Hero() {
       <div className="absolute inset-0 bg-gradient-to-r from-ink via-ink/75 to-ink/20" />
       <div className="absolute inset-0 bg-gradient-to-t from-ink via-transparent to-ink/40" />
       <div className="grain absolute inset-0" />
-      <motion.div style={{ y, opacity: op }} className="relative mx-auto flex min-h-[inherit] max-w-7xl flex-col justify-center px-6 pt-36 md:pt-48 lg:pt-56 md:pb-8">
+      <motion.div style={{ y, opacity: op }} className="relative mx-auto flex min-h-[inherit] site flex-col justify-center pt-36 md:pt-48 lg:pt-56 md:pb-8">
         <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.5, duration: 0.8 }}
           className="mb-6 flex items-center gap-3 text-xs uppercase tracking-[0.35em] text-white/70">
           <span className="h-px w-10 bg-brand" /> Who We Are
         </motion.div>
-        <h1 className="max-w-4xl text-5xl font-extrabold leading-none tracking-tight text-white sm:text-7xl lg:text-[5.8rem]">
+        <h1 className="max-w-[14ch] text-5xl font-extrabold leading-none tracking-tight text-white sm:text-7xl lg:text-[5.8rem] xl:text-[7rem] 2xl:text-[8.25rem]">
           <SplitText text="One vinyl." delay={0.6} /><br />
           <SplitText text="Decks, boats" delay={0.8} className="text-white/90" /><br />
           <SplitText text="& RVs." delay={1.0} className="italic font-serif font-normal text-brand-light" />
@@ -54,7 +54,7 @@ function Stats() {
   ];
   return (
     <section className="bg-ink text-white">
-      <div className="mx-auto grid max-w-7xl grid-cols-2 lg:grid-cols-4">
+      <div className="mx-auto grid site grid-cols-2 lg:grid-cols-4">
         {stats.map(([n, l], i) => (
           <Reveal key={l} delay={i * 0.08}>
             <div className={`border-white/10 p-8 md:p-10 ${i > 0 ? "border-l max-lg:[&:nth-child(3)]:border-l-0" : ""} max-lg:border-t lg:border-t-0 lg:border-l lg:first:border-l-0`}>
@@ -74,7 +74,7 @@ function Story() {
   const y = useTransform(scrollYProgress, [0, 1], [70, -70]);
   return (
     <section id="story" className="overflow-hidden bg-paper py-24 md:py-32">
-      <div className="mx-auto grid max-w-7xl items-center gap-14 px-6 lg:grid-cols-2 lg:gap-20">
+      <div className="mx-auto grid site items-center gap-14 lg:grid-cols-2 lg:gap-20">
         <div ref={ref} className="relative order-2 lg:order-1">
           <motion.div style={{ y }} className="relative aspect-[4/3] overflow-hidden shadow-[0_50px_100px_-30px_rgba(0,0,0,0.5)]">
             <img src={A.whoDeck} alt="Second-story waterproof vinyl deck with outdoor furniture" className="h-full w-full object-cover" />
@@ -136,7 +136,7 @@ const markets = [
 function Markets() {
   return (
     <section id="markets" className="bg-stone py-24 md:py-32">
-      <div className="mx-auto max-w-7xl px-6">
+      <div className="mx-auto site">
         <div className="mb-14 flex flex-col justify-between gap-6 md:flex-row md:items-end">
           <div>
             <Eyebrow>Three markets, one material</Eyebrow>
@@ -192,7 +192,7 @@ function Craft() {
   const y = useTransform(scrollYProgress, [0, 1], [60, -60]);
   return (
     <section className="overflow-hidden bg-paper py-24 md:py-32">
-      <div className="mx-auto grid max-w-7xl items-center gap-14 px-6 lg:grid-cols-2 lg:gap-20">
+      <div className="mx-auto grid site items-center gap-14 lg:grid-cols-2 lg:gap-20">
         <div>
           <Eyebrow>How it's made</Eyebrow>
           <h2 className="text-4xl font-extrabold leading-none tracking-tight text-ink md:text-6xl">
@@ -237,7 +237,7 @@ function Timeline() {
   ];
   return (
     <section className="bg-ink py-24 text-white md:py-32">
-      <div className="mx-auto max-w-7xl px-6">
+      <div className="mx-auto site">
         <Eyebrow light>Milestones</Eyebrow>
         <h2 className="mb-16 max-w-2xl text-4xl font-extrabold leading-none tracking-tight md:text-6xl">
           <SplitText text="Decades on the" /><br /><SplitText text="floor." delay={0.2} className="font-serif italic font-normal text-brand-light" />

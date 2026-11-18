@@ -32,10 +32,10 @@ export default function CtaSection({
       <motion.div style={{ scale: p, borderRadius: r }} className="relative overflow-hidden bg-ink">
         <div className="absolute inset-0 opacity-25"><img src={image} alt="" className="h-full w-full object-cover" /></div>
         <div className="absolute inset-0 bg-gradient-to-r from-ink via-ink/90 to-brand/40" />
-        <div className="relative mx-auto grid max-w-7xl items-center gap-10 px-6 py-28 md:grid-cols-[1.5fr_1fr]">
+        <div className="relative mx-auto grid site items-center gap-10 py-28 md:grid-cols-[1.5fr_1fr]">
           <div>
             <p className="mb-4 text-xs uppercase tracking-[0.35em] text-brand-light">— {eyebrow}</p>
-            <h2 className="text-4xl font-extrabold leading-[1.12] tracking-tight text-white md:text-7xl">
+            <h2 className="text-4xl font-extrabold leading-[1.12] tracking-tight text-white md:text-7xl xl:text-8xl 2xl:text-9xl">
               <SplitText text={titleA} /><br /><SplitText text={titleB} delay={0.2} className="font-serif italic font-normal text-brand-light" />
             </h2>
             <Reveal delay={0.3}><p className="mt-6 max-w-md text-white/60">{text}</p></Reveal>

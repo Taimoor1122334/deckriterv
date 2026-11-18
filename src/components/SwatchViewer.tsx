@@ -21,7 +21,7 @@ export default function SwatchViewer({ swatches, thumbsPerRow = 3, wide = false 
         <div
           onMouseMove={move}
           onMouseLeave={() => setZoom((z) => ({ ...z, on: false }))}
-          className="group relative aspect-[4/3] min-h-[420px] w-full cursor-crosshair overflow-hidden bg-black ring-1 ring-white/10 shadow-[0_50px_100px_-30px_rgba(0,0,0,0.8)] md:min-h-[520px]"
+          className="group relative aspect-[4/3] min-h-[420px] w-full cursor-crosshair overflow-hidden bg-black ring-1 ring-white/10 shadow-[0_50px_100px_-30px_rgba(0,0,0,0.8)] md:min-h-[520px] xl:min-h-[640px] 2xl:min-h-[760px]"
         >
           <AnimatePresence mode="popLayout">
             <motion.div key={p.name} initial={{ opacity: 0, scale: 1.08 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] as const }} className="absolute inset-0">

@@ -24,6 +24,8 @@ export type Application = {
   intro: string[];
   statement: string;
   specs: AppSpec[];
+  specSheet?: "shield" | "plank";
+  careSheet?: boolean;
   features: AppFeature[];
   colors: AppColor[];
   install: { title: string; desc: string; tools: string[] };
@@ -55,6 +57,8 @@ export const APPLICATIONS: Application[] = [
       { icon: Stack, value: "102\" × 100'", label: "Standard rolls" },
       { icon: Footprints, value: "Slip resistant", label: "Rugged applications" },
     ],
+    specSheet: "shield",
+    careSheet: true,
     features: [
       { icon: Tire, title: "Toy hauler garage floors", desc: "Handles tires, tools, fuel and gear without showing the wear of a season on the trail." },
       { icon: Stack, title: "Enclosed & cargo trailers", desc: "A hard-wearing surface for work trailers that see daily loading and unloading." },
@@ -101,6 +105,7 @@ export const APPLICATIONS: Application[] = [
       { icon: SunHorizon, value: "Gray / Brown", label: "Color options" },
       { icon: Footprints, value: "Slip resistant", label: "Deck & ramp" },
     ],
+    specSheet: "plank",
     features: [
       { icon: SunHorizon, title: "Exterior decks & ramps", desc: "Created for toy hauler ramps folded out as exterior decks — entertaining space or a midday siesta." },
       { icon: Boat, title: "A cozy, relaxing setting", desc: "Reflects a more relaxing setting, not an industrial one — right at home on the campsite." },

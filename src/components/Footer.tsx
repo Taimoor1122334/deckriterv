@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
-import { ArrowUpRight, MapPin, Phone, SealCheck } from "@phosphor-icons/react";
+import { ArrowUpRight, Broom, FilePdf, MapPin, Phone, SealCheck } from "@phosphor-icons/react";
 import { ADDRESS_LINE, MAPS, SITE, contactLink } from "../data/site";
+import CareSheetLink from "./CareSheetLink";
+import SpecSheetLink from "./SpecSheetLink";
 import WarrantyLink from "./WarrantyLink";
 import SocialLinks from "./SocialLinks";
 import Logo from "./Logo";
@@ -10,7 +12,7 @@ const linkCls = "text-white/60 transition hover:text-white";
 export default function Footer() {
   return (
     <footer className="bg-ink text-white/60">
-      <div className="mx-auto max-w-7xl px-6 pb-10 pt-20">
+      <div className="mx-auto site pb-10 pt-20">
         <div className="grid gap-12 border-b border-white/10 pb-14 lg:grid-cols-[1.3fr_2fr]">
           <div>
             <Link to="/" className="inline-block" aria-label="DeckRite RV home"><Logo variant="footer" /></Link>
@@ -46,6 +48,15 @@ export default function Footer() {
               <WarrantyLink className={`${linkCls} inline-flex items-center gap-2`}>
                 <SealCheck size={15} weight="duotone" className="text-brand-light" /> Warranty <span className="text-white/30">PDF</span>
               </WarrantyLink>
+              <SpecSheetLink id="shield" className={`${linkCls} inline-flex items-center gap-2`}>
+                <FilePdf size={15} weight="duotone" className="text-brand-light" /> Shield RV spec sheet
+              </SpecSheetLink>
+              <SpecSheetLink id="plank" className={`${linkCls} inline-flex items-center gap-2`}>
+                <FilePdf size={15} weight="duotone" className="text-brand-light" /> Plank RV spec sheet
+              </SpecSheetLink>
+              <CareSheetLink className={`${linkCls} inline-flex items-center gap-2`}>
+                <Broom size={15} weight="duotone" className="text-brand-light" /> Care & maintenance
+              </CareSheetLink>
               <Link {...contactLink("brochure")} className={linkCls}>Free PDF Brochure</Link>
               <Link {...contactLink("oem")} className={linkCls}>OEM Inquiry</Link>
             </div>
