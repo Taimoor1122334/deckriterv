@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { BROCHURE_PDF_B64 } from "../assets/docs/brochure";
 import { CARE_PDF_B64 } from "../assets/docs/care";
 import { PLANK_SPEC_B64, SHIELD_SPEC_B64 } from "../assets/docs/spec-sheets";
 import { WARRANTY_PDF_B64 } from "../assets/docs/warranty";
@@ -45,4 +46,11 @@ let careBlobUrl: string | null = null;
 export function careUrl() {
   if (!careBlobUrl) careBlobUrl = pdfBlobUrl(CARE_PDF_B64);
   return careBlobUrl;
+}
+
+let brochureBlobUrl: string | null = null;
+/** Lazily turns the embedded DeckRite RV brochure into a blob: URL. */
+export function brochureUrl() {
+  if (!brochureBlobUrl) brochureBlobUrl = pdfBlobUrl(BROCHURE_PDF_B64);
+  return brochureBlobUrl;
 }

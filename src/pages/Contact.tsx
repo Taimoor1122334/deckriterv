@@ -8,6 +8,7 @@ import {
 import * as A from "../assets/images";
 import { ADDRESS_LINE, MAPS, SITE, type ContactTopic } from "../data/site";
 import { Btn, Eyebrow, Reveal, SplitText, ease } from "../components/anim";
+import BrochureLink from "../components/BrochureLink";
 import CareSheetLink from "../components/CareSheetLink";
 import WarrantyLink from "../components/WarrantyLink";
 import SocialLinks from "../components/SocialLinks";
@@ -33,7 +34,7 @@ const TOPICS: Topic[] = [
   {
     id: "brochure", label: "Free brochure", icon: BookOpen, title: "Free PDF brochure", cta: "Request brochure",
     blurb: "Every DeckRite RV product, in one free download.",
-    tip: "Just your name and email address and we will send the free DeckRite RV PDF brochure your way.",
+    tip: "Open the DeckRite RV brochure now, or leave your name and email and we will send a copy.",
   },
   {
     id: "other", label: "Something else", icon: ChatText, title: "Something else", cta: "Get in touch",
@@ -377,6 +378,7 @@ function FormSection({ topic, setTopic }: { topic: ContactTopic; setTopic: (t: C
               <p className="mt-3 leading-relaxed text-ink/70">{t.tip}</p>
               {topic === "oem" && <a href={SITE.phone.href} className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-brand"><Phone size={16} weight="duotone" /> Call {SITE.phone.pretty}</a>}
               {topic === "warranty" && <WarrantyLink className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-brand"><SealCheck size={16} weight="duotone" /> View the warranty (PDF)</WarrantyLink>}
+              {topic === "brochure" && <BrochureLink className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-brand"><BookOpen size={16} weight="duotone" /> View the brochure (PDF)</BrochureLink>}
             </motion.div>
           </AnimatePresence>
 

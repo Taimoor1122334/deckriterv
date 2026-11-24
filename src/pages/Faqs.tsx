@@ -10,6 +10,7 @@ import { FAQS, splitVerdict, type Faq } from "../data/faqs";
 import { SITE, WARRANTY_FACTS, contactLink } from "../data/site";
 import { Btn, Eyebrow, Reveal, SplitText, ease } from "../components/anim";
 import CtaSection from "../components/CtaSection";
+import BrochureLink from "../components/BrochureLink";
 import CareSheetLink from "../components/CareSheetLink";
 import WarrantyLink from "../components/WarrantyLink";
 import Logo from "../components/Logo";
@@ -338,18 +339,18 @@ function Warranty() {
 
       <div className="relative mx-auto mt-20 site">
         <Reveal>
-          <Link {...contactLink("brochure")} className="group flex flex-col items-start justify-between gap-6 border border-white/10 bg-white/[0.03] p-8 transition hover:border-white/25 md:flex-row md:items-center">
+          <BrochureLink className="group flex flex-col items-start justify-between gap-6 border border-white/10 bg-white/[0.03] p-8 transition hover:border-white/25 md:flex-row md:items-center">
             <div className="flex items-center gap-5">
               <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-brand/15 text-brand-light"><BookOpen size={28} weight="duotone" /></span>
               <div>
                 <div className="text-xl font-bold">Prefer everything in one place?</div>
-                <div className="mt-1 text-white/55">Request the free DeckRite RV PDF brochure.</div>
+                <div className="mt-1 text-white/55">Open the DeckRite RV brochure.</div>
               </div>
             </div>
             <span className="inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-wide text-brand-light">
-              Request brochure <ArrowRight size={16} weight="bold" className="transition group-hover:translate-x-1" />
+              View brochure <ArrowRight size={16} weight="bold" className="transition group-hover:translate-x-1" />
             </span>
-          </Link>
+          </BrochureLink>
         </Reveal>
       </div>
     </section>

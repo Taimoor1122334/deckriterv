@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
-import { ArrowUpRight, Broom, FilePdf, MapPin, Phone, SealCheck } from "@phosphor-icons/react";
+import { ArrowUpRight, BookOpen, Broom, FilePdf, MapPin, Phone, SealCheck } from "@phosphor-icons/react";
 import { ADDRESS_LINE, MAPS, SITE, contactLink } from "../data/site";
+import BrochureLink from "./BrochureLink";
 import CareSheetLink from "./CareSheetLink";
 import SpecSheetLink from "./SpecSheetLink";
 import WarrantyLink from "./WarrantyLink";
@@ -57,7 +58,9 @@ export default function Footer() {
               <CareSheetLink className={`${linkCls} inline-flex items-center gap-2`}>
                 <Broom size={15} weight="duotone" className="text-brand-light" /> Care & maintenance
               </CareSheetLink>
-              <Link {...contactLink("brochure")} className={linkCls}>Free PDF Brochure</Link>
+              <BrochureLink className={`${linkCls} inline-flex items-center gap-2`}>
+                <BookOpen size={15} weight="duotone" className="text-brand-light" /> RV brochure
+              </BrochureLink>
               <Link {...contactLink("oem")} className={linkCls}>OEM Inquiry</Link>
             </div>
           </div>

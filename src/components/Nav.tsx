@@ -4,6 +4,7 @@ import { Link, NavLink, useLocation } from "react-router-dom";
 import { ArrowRight, BookOpen, CaretDown, List, MapPin, Phone, SealCheck, X } from "@phosphor-icons/react";
 import { getApplication } from "../data/applications";
 import { SITE, contactLink } from "../data/site";
+import BrochureLink from "./BrochureLink";
 import WarrantyLink from "./WarrantyLink";
 import SocialLinks from "./SocialLinks";
 import Logo from "./Logo";
@@ -93,9 +94,9 @@ export default function Nav() {
             <WarrantyLink className="flex items-center gap-2 transition hover:text-white">
               <SealCheck size={14} weight="duotone" className="text-brand-light" /> Warranty <span className="text-white/35">PDF</span>
             </WarrantyLink>
-            <Link {...contactLink("brochure")} className="flex items-center gap-2 transition hover:text-white">
-              <BookOpen size={14} weight="duotone" className="text-brand-light" /> Free brochure
-            </Link>
+            <BrochureLink className="flex items-center gap-2 transition hover:text-white">
+              <BookOpen size={14} weight="duotone" className="text-brand-light" /> Brochure <span className="text-white/35">PDF</span>
+            </BrochureLink>
             <span className="h-3 w-px bg-white/20" />
             <SocialLinks size={14} itemClassName="text-white/50 hover:text-white" />
           </div>
@@ -221,7 +222,7 @@ export default function Nav() {
               </div>
               <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.6 }} className="mt-10 flex flex-wrap gap-3 text-sm">
                 <WarrantyLink className="flex items-center gap-2 border border-white/15 px-4 py-3 text-white/80"><SealCheck size={16} weight="duotone" className="text-brand-light" /> Warranty (PDF)</WarrantyLink>
-                <Link {...contactLink("brochure")} className="flex items-center gap-2 border border-white/15 px-4 py-3 text-white/80"><BookOpen size={16} weight="duotone" className="text-brand-light" /> Free brochure</Link>
+                <BrochureLink className="flex items-center gap-2 border border-white/15 px-4 py-3 text-white/80"><BookOpen size={16} weight="duotone" className="text-brand-light" /> Brochure (PDF)</BrochureLink>
               </motion.div>
               <div className="mt-auto pt-12">
                 <a href={SITE.phone.href} className="block bg-brand px-6 py-5 text-center text-white">
