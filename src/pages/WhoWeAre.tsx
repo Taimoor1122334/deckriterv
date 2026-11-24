@@ -11,8 +11,6 @@ function Hero() {
   const ref = useRef(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
   const scale = useTransform(scrollYProgress, [0, 1], [1, 1.06]);
-  const y = useTransform(scrollYProgress, [0, 1], [0, 160]);
-  const op = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
   return (
     <section ref={ref} className="relative min-h-[max(92svh,620px)] overflow-hidden bg-ink">
       <motion.div style={{ scale }} className="absolute inset-0">
@@ -22,7 +20,7 @@ function Hero() {
       <div className="absolute inset-0 bg-gradient-to-r from-ink via-ink/75 to-ink/20" />
       <div className="absolute inset-0 bg-gradient-to-t from-ink via-transparent to-ink/40" />
       <div className="grain absolute inset-0" />
-      <motion.div style={{ y, opacity: op }} className="relative mx-auto flex min-h-[inherit] site flex-col justify-center pt-36 md:pt-48 lg:pt-56 md:pb-8">
+      <div className="relative z-10 mx-auto flex min-h-[inherit] site flex-col justify-center pb-16 pt-36 md:pb-24 md:pt-48 lg:pt-56">
         <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.5, duration: 0.8 }}
           className="mb-6 flex items-center gap-3 text-xs uppercase tracking-[0.35em] text-white/70">
           <span className="h-px w-10 bg-brand" /> Who We Are
@@ -40,7 +38,7 @@ function Hero() {
           <Btn scrollTo="story">Our story</Btn>
           <Btn variant="ghost" scrollTo="markets">Our markets</Btn>
         </motion.div>
-      </motion.div>
+      </div>
     </section>
   );
 }

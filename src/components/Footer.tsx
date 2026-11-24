@@ -59,7 +59,7 @@ export default function Footer() {
                 <Broom size={15} weight="duotone" className="text-brand-light" /> Care & maintenance
               </CareSheetLink>
               <BrochureLink className={`${linkCls} inline-flex items-center gap-2`}>
-                <BookOpen size={15} weight="duotone" className="text-brand-light" /> RV brochure
+                <BookOpen size={15} weight="duotone" className="text-brand-light" /> Color chart
               </BrochureLink>
               <Link {...contactLink("oem")} className={linkCls}>OEM Inquiry</Link>
             </div>

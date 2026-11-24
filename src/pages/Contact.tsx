@@ -32,9 +32,9 @@ const TOPICS: Topic[] = [
     tip: "Include your RV description and date of purchase. The full terms, conditions and limitations are in the warranty PDF.",
   },
   {
-    id: "brochure", label: "Free brochure", icon: BookOpen, title: "Free PDF brochure", cta: "Request brochure",
-    blurb: "Every DeckRite RV product, in one free download.",
-    tip: "Open the DeckRite RV brochure now, or leave your name and email and we will send a copy.",
+    id: "brochure", label: "Color chart", icon: BookOpen, title: "Color chart", cta: "View color chart",
+    blurb: "Each flooring type and its colors, in one PDF.",
+    tip: "Open the DeckRite RV color chart now, or leave your name and email and we will send a copy.",
   },
   {
     id: "other", label: "Something else", icon: ChatText, title: "Something else", cta: "Get in touch",
@@ -42,7 +42,7 @@ const TOPICS: Topic[] = [
   },
 ];
 const topicOf = (id: ContactTopic) => TOPICS.find((t) => t.id === id)!;
-const BROCHURE_MSG = "Please send me the free DeckRite RV PDF brochure.";
+const BROCHURE_MSG = "Please send me the DeckRite RV color chart.";
 
 /* ------------------------------------------------------------------ hero -- */
 const FLOATERS = [
@@ -285,7 +285,7 @@ function ContactForm({ topic, setTopic }: { topic: ContactTopic; setTopic: (t: C
               <motion.path d="M25 41 l10 10 l20 -22" fill="none" stroke="#9b1c1f" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ delay: 0.6, duration: 0.5, ease }} />
             </svg>
             <h3 className="mt-8 text-3xl font-extrabold text-ink">Thanks, {firstName}!</h3>
-            <p className="mt-3 max-w-sm text-ink/60">{brochure ? "Your request for the free DeckRite RV brochure is on its way." : "Your message is on its way to the DeckRite RV team."}</p>
+            <p className="mt-3 max-w-sm text-ink/60">{brochure ? "Your request for the DeckRite RV color chart is on its way." : "Your message is on its way to the DeckRite RV team."}</p>
             <a href={SITE.phone.href} className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-brand"><Phone size={16} weight="duotone" /> Prefer to talk? Call {SITE.phone.vanity}</a>
             <button type="button" onClick={reset} className="mt-10 text-xs font-semibold uppercase tracking-[0.25em] text-ink/45 transition hover:text-ink">Send another message</button>
           </motion.div>
@@ -350,7 +350,7 @@ function ContactForm({ topic, setTopic }: { topic: ContactTopic; setTopic: (t: C
                 {status === "sending"
                   ? <CircleNotch size={18} weight="bold" className="relative animate-spin" />
                   : <PaperPlaneTilt size={18} weight="duotone" className="relative transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />}
-                <span className="relative">{status === "sending" ? "Sending…" : brochure ? "Send me the brochure" : "Send message"}</span>
+                <span className="relative">{status === "sending" ? "Sending…" : brochure ? "Send me the color chart" : "Send message"}</span>
               </button>
             </div>
           </motion.form>
@@ -378,7 +378,7 @@ function FormSection({ topic, setTopic }: { topic: ContactTopic; setTopic: (t: C
               <p className="mt-3 leading-relaxed text-ink/70">{t.tip}</p>
               {topic === "oem" && <a href={SITE.phone.href} className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-brand"><Phone size={16} weight="duotone" /> Call {SITE.phone.pretty}</a>}
               {topic === "warranty" && <WarrantyLink className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-brand"><SealCheck size={16} weight="duotone" /> View the warranty (PDF)</WarrantyLink>}
-              {topic === "brochure" && <BrochureLink className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-brand"><BookOpen size={16} weight="duotone" /> View the brochure (PDF)</BrochureLink>}
+              {topic === "brochure" && <BrochureLink className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-brand"><BookOpen size={16} weight="duotone" /> View the color chart (PDF)</BrochureLink>}
             </motion.div>
           </AnimatePresence>
 

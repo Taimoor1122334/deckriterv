@@ -23,8 +23,6 @@ function Hero({ app }: { app: NonNullable<ReturnType<typeof getApplication>> }) 
   const { hideHint } = useHeroCrowding(ref, contentRef, hintRef);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
   const scale = useTransform(scrollYProgress, [0, 1], [1, 1.06]);
-  const y = useTransform(scrollYProgress, [0, 1], [0, 160]);
-  const op = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
   return (
     <section ref={ref} className="relative min-h-[max(92svh,620px)] overflow-hidden bg-ink">
       <motion.div style={{ scale }} className="absolute inset-0">
@@ -35,7 +33,7 @@ function Hero({ app }: { app: NonNullable<ReturnType<typeof getApplication>> }) 
       <div className="absolute inset-0 bg-gradient-to-t from-ink via-transparent to-ink/40" />
       <div className="grain absolute inset-0" />
 
-      <motion.div ref={contentRef} style={{ y, opacity: op }} className="relative mx-auto flex min-h-[inherit] site flex-col justify-center pt-36 md:pt-48 lg:pt-56 md:pb-8">
+      <div ref={contentRef} className="relative z-10 mx-auto flex min-h-[inherit] site flex-col justify-center pb-16 pt-36 md:pb-24 md:pt-48 lg:pt-56">
         <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.5, duration: 0.8 }}>
           <Link to="/" className="mb-6 inline-flex items-center gap-2 text-xs uppercase tracking-[0.3em] text-white/60 transition hover:text-white">
             <ArrowLeft size={16} weight="bold" /> All applications
@@ -55,7 +53,7 @@ function Hero({ app }: { app: NonNullable<ReturnType<typeof getApplication>> }) 
           <Btn scrollTo="colors">See colors</Btn>
           <Btn variant="ghost" scrollTo="story">Why {app.product}</Btn>
         </motion.div>
-      </motion.div>
+      </div>
 
       <motion.div ref={hintRef} style={{ visibility: hideHint ? "hidden" : "visible" }} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 2 }}
         className="absolute bottom-8 left-6 flex items-center gap-3 text-[10px] uppercase tracking-[0.3em] text-white/50 md:left-1/2 md:-translate-x-1/2">

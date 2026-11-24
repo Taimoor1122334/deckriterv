@@ -23,13 +23,12 @@ function Hero({ onPick }: { onPick: (i: number) => void }) {
   const ref = useRef(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
   const imgScale = useTransform(scrollYProgress, [0, 1], [1, 1.15]);
-  const textY = useTransform(scrollYProgress, [0, 1], [0, 110]);
   return (
     <section ref={ref} className="relative overflow-hidden bg-ink">
       <div className="grain absolute inset-0" />
       <div className="pointer-events-none absolute -left-40 top-1/3 h-[480px] w-[480px] rounded-full bg-brand/20 blur-[140px]" />
       <div className="relative grid lg:min-h-[100svh] lg:grid-cols-2">
-        <motion.div style={{ y: textY }} className="site relative z-10 flex flex-col justify-center pb-14 pt-36 md:pt-48 lg:w-full lg:pb-28 lg:pt-56 lg:pr-14">
+        <div className="site relative z-10 flex flex-col justify-center pb-14 pt-36 md:pt-48 lg:w-full lg:pb-28 lg:pt-56 lg:pr-14">
           <motion.p initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.4, duration: 0.8 }}
             className="mb-6 flex items-center gap-3 text-xs uppercase tracking-[0.35em] text-white/70">
             <span className="h-px w-10 bg-brand" /> FAQs
@@ -57,7 +56,7 @@ function Hero({ onPick }: { onPick: (i: number) => void }) {
               </li>
             ))}
           </motion.ol>
-        </motion.div>
+        </div>
 
         <div className="relative h-[68vh] lg:h-auto">
           <motion.div initial={{ clipPath: "inset(0 0 0 100%)" }} animate={{ clipPath: "inset(0 0 0 0%)" }} transition={{ duration: 1.4, ease, delay: 0.2 }} className="absolute inset-0 overflow-hidden">
@@ -344,11 +343,11 @@ function Warranty() {
               <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-brand/15 text-brand-light"><BookOpen size={28} weight="duotone" /></span>
               <div>
                 <div className="text-xl font-bold">Prefer everything in one place?</div>
-                <div className="mt-1 text-white/55">Open the DeckRite RV brochure.</div>
+                <div className="mt-1 text-white/55">Open the DeckRite RV color chart. It shows each flooring type and its colors.</div>
               </div>
             </div>
             <span className="inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-wide text-brand-light">
-              View brochure <ArrowRight size={16} weight="bold" className="transition group-hover:translate-x-1" />
+              View color chart <ArrowRight size={16} weight="bold" className="transition group-hover:translate-x-1" />
             </span>
           </BrochureLink>
         </Reveal>

@@ -31,8 +31,6 @@ function Hero() {
   const { hideHint, hidePanel } = useHeroCrowding(ref, contentRef, hintRef, panelRef);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
   const scale = useTransform(scrollYProgress, [0, 1], [1, 1.06]);
-  const y = useTransform(scrollYProgress, [0, 1], [0, 200]);
-  const op = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
   return (
     <section ref={ref} className="relative min-h-[max(100svh,680px)] overflow-hidden bg-ink">
       <motion.div style={{ scale }} className="absolute inset-0">
@@ -44,12 +42,12 @@ function Hero() {
       <div className="absolute inset-0 bg-gradient-to-r from-ink via-ink/70 to-transparent" />
       <div className="absolute inset-0 bg-gradient-to-t from-ink via-transparent to-transparent" />
 
-      <motion.div ref={contentRef} style={{ y, opacity: op }} className="relative mx-auto flex min-h-[inherit] site flex-col justify-center pt-36 md:pt-48 lg:pt-56 md:pb-8">
+      <div ref={contentRef} className="relative z-10 mx-auto flex min-h-[inherit] site flex-col justify-center pb-16 pt-36 md:pb-32 md:pt-48 lg:pb-36 lg:pt-56">
         <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.6, duration: 0.8 }}
           className="mb-6 flex items-center gap-3 text-xs uppercase tracking-[0.35em] text-white/70">
           <span className="h-px w-10 bg-brand" /> Ramps, decks and toy hauler floors
         </motion.div>
-        <h1 className="max-w-[18ch] text-5xl font-extrabold leading-none tracking-tight text-white sm:text-7xl lg:text-[6.2rem] xl:text-[7.5rem] 2xl:text-[8.75rem]">
+        <h1 className="max-w-[18ch] text-5xl font-extrabold leading-none tracking-tight text-white sm:text-7xl lg:text-[5.6rem] xl:text-[6.8rem] 2xl:text-[8rem]">
           <SplitText text="RV Flooring." delay={0.7} /><br />
           <SplitText text="Rugged by Nature." delay={0.9} className="text-white/90" /><br />
           <SplitText text="Refined by Design." delay={1.1} className="italic font-serif font-normal text-brand-light" />
@@ -60,10 +58,11 @@ function Hero() {
         </motion.p>
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1.7, duration: 0.8 }} className="mt-10 flex flex-wrap gap-4">
           <Btn {...contactLink("oem")}>OEM Inquiry</Btn><Btn variant="ghost" scrollTo="spaces">Explore Products</Btn>
-        </motion.div>      </motion.div>
+        </motion.div>
+      </div>
 
       <motion.div ref={panelRef} style={{ visibility: hidePanel ? "hidden" : "visible" }} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 2.2 }}
-        className="absolute bottom-0 right-0 hidden border-l border-t border-white/10 bg-ink/60 backdrop-blur-md md:flex">
+        className="absolute bottom-0 right-0 z-0 hidden border-l border-t border-white/10 bg-ink/60 backdrop-blur-md md:flex">
         {[["3", "RV flooring families"], ["8", "ULTRA woven patterns"], ["2", "ULTRA backing options"]].map(([n, l]) => (
           <div key={l} className="border-r border-white/10 px-8 py-6 last:border-0">
             <div className="text-3xl font-bold text-white">{n}</div><div className="mt-1 text-xs uppercase tracking-wider text-white/50">{l}</div>
@@ -181,26 +180,26 @@ function Products() {
     setZoom({ x: ((e.clientX - r.left) / r.width) * 100, y: ((e.clientY - r.top) / r.height) * 100, on: true });
   };
   return (
-    <section className="relative overflow-hidden bg-ink py-14 text-white md:py-16">
+    <section className="relative overflow-hidden bg-ink py-10 text-white md:py-12 lg:flex lg:h-[100svh] lg:flex-col lg:pb-6 lg:pt-[7.25rem]">
       <div className="pointer-events-none absolute inset-0 opacity-60" style={{ background: `radial-gradient(60% 50% at 75% 40%, ${p.tint}33, transparent 70%)`, transition: "background 0.8s" }} />
       <div className="grain absolute inset-0" />
-      <div className="relative mx-auto site">
-        <div className="mb-7 grid items-end gap-5 md:mb-8 md:grid-cols-2">
+      <div className="relative mx-auto flex min-h-0 w-full flex-1 flex-col site">
+        <div className="mb-4 grid shrink-0 items-end gap-4 md:mb-5 md:grid-cols-2">
           <div>
-            <Reveal><p className="mb-4 flex items-center gap-3 text-xs uppercase tracking-[0.35em] text-brand-light"><Swatches size={18} weight="duotone" /> Design & Color Options</p></Reveal>
-            <h2 className="text-4xl font-extrabold leading-none tracking-tight md:text-[3.25rem] xl:text-6xl 2xl:text-7xl">
+            <Reveal><p className="mb-3 flex items-center gap-3 text-xs uppercase tracking-[0.35em] text-brand-light"><Swatches size={18} weight="duotone" /> Design & Color Options</p></Reveal>
+            <h2 className="text-4xl font-extrabold leading-none tracking-tight md:text-5xl xl:text-6xl">
               <SplitText text="See the texture." /><br /><SplitText text="Find your finish." delay={0.2} className="font-serif italic font-normal text-brand-light" />
             </h2>
           </div>
-          <Reveal delay={0.2}><p className="max-w-md text-white/60 md:ml-auto">Explore ULTRA woven PVC, DeckRite Plank and Shield RV surfaces, each designed for a different part of your RV.</p></Reveal>
+          <Reveal delay={0.2}><p className="max-w-md text-white/60 md:ml-auto md:text-sm xl:text-base">Explore ULTRA woven PVC, DeckRite Plank and Shield RV surfaces, each designed for a different part of your RV.</p></Reveal>
         </div>
 
-        <div className="grid gap-6 lg:grid-cols-[1.45fr_1fr] lg:gap-10">
-          <Reveal>
+        <div className="grid min-h-0 flex-1 gap-4 lg:grid-cols-[minmax(0,1.35fr)_minmax(0,1fr)] lg:grid-rows-[minmax(0,1fr)_auto] lg:gap-x-8 lg:gap-y-4">
+          <div className="min-h-0 lg:col-start-1 lg:row-start-1">
             <div
               onMouseMove={move}
               onMouseLeave={() => setZoom((z) => ({ ...z, on: false }))}
-              className="group relative aspect-[4/3] min-h-[420px] w-full cursor-crosshair overflow-hidden bg-black ring-1 ring-white/10 shadow-[0_50px_100px_-30px_rgba(0,0,0,0.8)] md:min-h-[520px] xl:min-h-[640px] 2xl:min-h-[760px]"
+              className="group relative h-[42vh] min-h-[240px] w-full cursor-crosshair overflow-hidden bg-black ring-1 ring-white/10 shadow-[0_50px_100px_-30px_rgba(0,0,0,0.8)] lg:h-full lg:min-h-0"
             >
               <AnimatePresence mode="popLayout">
                 <motion.div key={p.code} initial={{ opacity: 0, scale: 1.08 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.7, ease }} className="absolute inset-0">
@@ -229,9 +228,9 @@ function Products() {
                 </span>
               </div>
             </div>
-          </Reveal>
+          </div>
 
-          <div className="flex flex-col">
+          <div className="flex flex-col justify-center lg:col-start-2 lg:row-span-2 lg:row-start-1">
             <AnimatePresence mode="wait">
               <motion.div key={p.code} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }} transition={{ duration: 0.5, ease }}>
                 <div className="flex items-center gap-3 text-xs uppercase tracking-[0.3em] text-white/50">
@@ -271,29 +270,29 @@ function Products() {
               )}
             </div>
           </div>
-        </div>
 
-        <div className="mt-4 grid grid-cols-3 gap-3 md:gap-5 lg:w-[calc((100%-2.5rem)*1.45/2.45)]">
-          {products.map((t, i) => (
-            <Reveal key={t.code} delay={i * 0.08}>
-              <button onClick={() => setActive(i)} className={`group relative block w-full text-left transition ${active === i ? "" : "opacity-60 hover:opacity-100"}`}>
-                <div className="relative aspect-[4/3] overflow-hidden ring-1 ring-white/10">
-                  <img src={t.thumb} alt={`${t.name} swatch`} className="absolute inset-0 h-full w-full object-cover" />
-                  {active === i && <motion.span layoutId="thumbRing" className="absolute inset-0 ring-2 ring-inset ring-brand-light" transition={{ type: "spring", stiffness: 300, damping: 30 }} />}
-                </div>
-                <div className="mt-2 flex items-center justify-between gap-2">
-                  <div>
-                    <div className="text-sm font-semibold">{t.name}</div>
-                    <div className="hidden text-[11px] uppercase tracking-wider text-white/40 sm:block">{t.zone}</div>
+          <div className="grid grid-cols-3 gap-3 lg:col-start-1 lg:row-start-2 lg:gap-4">
+            {products.map((t, i) => (
+              <Reveal key={t.code} delay={i * 0.08}>
+                <button onClick={() => setActive(i)} className={`group relative block w-full text-left transition ${active === i ? "" : "opacity-60 hover:opacity-100"}`}>
+                  <div className="relative h-20 overflow-hidden ring-1 ring-white/10 sm:h-24">
+                    <img src={t.thumb} alt={`${t.name} swatch`} className="absolute inset-0 h-full w-full object-cover" />
+                    {active === i && <motion.span layoutId="thumbRing" className="absolute inset-0 ring-2 ring-inset ring-brand-light" transition={{ type: "spring", stiffness: 300, damping: 30 }} />}
                   </div>
-                  <span className="font-mono text-xs text-white/40">0{i + 1}</span>
-                </div>
-                <div className="mt-2 h-px w-full bg-white/10">
-                  {active === i && <motion.div layoutId="thumbBar" className="h-px bg-brand-light" />}
-                </div>
-              </button>
-            </Reveal>
-          ))}
+                  <div className="mt-2 flex items-center justify-between gap-2">
+                    <div className="min-w-0">
+                      <div className="truncate text-sm font-semibold">{t.name}</div>
+                      <div className="hidden truncate text-[11px] uppercase tracking-wider text-white/40 sm:block">{t.zone}</div>
+                    </div>
+                    <span className="font-mono text-xs text-white/40">0{i + 1}</span>
+                  </div>
+                  <div className="mt-2 h-px w-full bg-white/10">
+                    {active === i && <motion.div layoutId="thumbBar" className="h-px bg-brand-light" />}
+                  </div>
+                </button>
+              </Reveal>
+            ))}
+          </div>
         </div>
       </div>
     </section>

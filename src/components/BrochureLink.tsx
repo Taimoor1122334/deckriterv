@@ -2,11 +2,11 @@ import { ReactNode } from "react";
 import { brochureUrl } from "../lib/utils";
 
 export const BROCHURE = {
-  title: "DeckRite RV brochure",
-  fileName: "DeckRite-RV-Brochure.pdf",
+  title: "DeckRite RV color chart",
+  fileName: "DeckRite-RV-Color-Chart.pdf",
 };
 
-/** Opens the embedded DeckRite RV brochure. */
+/** Opens the embedded DeckRite RV color chart. */
 export default function BrochureLink({ children, className = "", download = false }: { children: ReactNode; className?: string; download?: boolean }) {
   return (
     <a
